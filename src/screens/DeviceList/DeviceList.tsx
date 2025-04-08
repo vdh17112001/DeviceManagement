@@ -27,8 +27,6 @@ const DeviceList = () => {
    const _handleSelectItem = (item: DeviceItemType) => {
       selectDeviceById(item.id)
       setSummaryItem(item)
-
-      console.log('Hoang: item ', item.selected)
    }
 
    const _removeItem = (id: string) => {
@@ -52,7 +50,7 @@ const DeviceList = () => {
 
    return (
       <View style={container}>
-         <Toolbar />
+         <Toolbar routeName="CustomerInfor" />
          <SearchInput onSearch={() => {}} />
          <FlashList
             renderItem={renderList}

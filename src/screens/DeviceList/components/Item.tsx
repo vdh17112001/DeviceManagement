@@ -1,6 +1,7 @@
+import React from 'react'
 import {StyleSheet, Text, TouchableOpacity, View} from 'react-native'
 import {DeviceItemType} from '../utils/type'
-import { height, width } from '../../../common/utils/dimensions'
+import {height, width} from '../../../common/utils/dimensions'
 
 type DeviceItemProps = {
    item: DeviceItemType
@@ -10,14 +11,22 @@ type DeviceItemProps = {
 
 export const DeviceItem = ({item, onPress, onDelete}: DeviceItemProps) => {
    const {name, quantity, fee, selected} = item
-   const {container, text, subView, label, padding} = DeviceItemStyle
+   const {
+      container,
+      text,
+      subView,
+      label,
+      padding,
+      deleteText,
+      selectItem,
+      deleteButton,
+   } = styles
 
    return (
-      <View style={container}>
-         <TouchableOpacity onPress={onPress} style={{flex: 1}}>
+      <View style={[container, selected && selectItem]}>
+         <TouchableOpacity onPress={onPress}>
             <View style={subView}>
                <Text style={[text, padding]}>{name}</Text>
-               {selected && <Text style={text}>{name}</Text>}
             </View>
             <View style={subView}>
                <View>
@@ -28,14 +37,16 @@ export const DeviceItem = ({item, onPress, onDelete}: DeviceItemProps) => {
                      <Text style={[label, text]}>Quantity:</Text> {quantity}
                   </Text>
                </View>
-               <Text style={text}>{fee}</Text>
+               <TouchableOpacity style={deleteButton} onPress={onDelete}>
+                  <Text style={[text, deleteText]}>delete</Text>
+               </TouchableOpacity>
             </View>
          </TouchableOpacity>
       </View>
    )
 }
 
-const DeviceItemStyle = StyleSheet.create({
+const styles = StyleSheet.create({
    container: {
       height: height * 0.1,
       width: width * 0.9,
@@ -48,7 +59,7 @@ const DeviceItemStyle = StyleSheet.create({
    text: {
       fontSize: 14,
       color: 'black',
-      paddingLeft: 8
+      paddingLeft: 8,
    },
    padding: {
       padding: 8,
@@ -57,5 +68,17 @@ const DeviceItemStyle = StyleSheet.create({
    subView: {
       flexDirection: 'row',
       justifyContent: 'space-between',
+   },
+   deleteText: {
+      color: 'red',
+   },
+   deleteButton: {
+      width: width * 0.2,
+      alignItems: 'center',
+      justifyContent: 'flex-end',
+   },
+   selectItem: {
+      borderWidth: 1,
+      borderColor: 'blue',
    },
 })
