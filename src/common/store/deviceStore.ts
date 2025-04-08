@@ -3,13 +3,15 @@ import {DeviceItemType} from '../../screens/DeviceList/utils/type'
 import {generateDeviceItems} from '../../screens/DeviceList/utils/generateItem'
 
 class DeviceStore {
-  deviceList: DeviceItemType[] = generateDeviceItems()
-  deviceListTemp: DeviceItemType[] = []
+  deviceList: DeviceItemType[] = []
+
   constructor() {
     makeAutoObservable(this)
   }
 
-  setDeviceItem = (data: DeviceItemType[]) => {}
+  setDeviceItem = (data: DeviceItemType[]) => {
+    this.deviceList = [...data]
+  }
 
   selectItem = (index: number) => {
     const data = this.deviceList[index]

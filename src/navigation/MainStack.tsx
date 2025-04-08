@@ -13,7 +13,7 @@ const Stack = createNativeStackNavigator<MainStackParamList>()
 export const MainStack = () => {
   return (
     <Stack.Navigator
-      initialRouteName="DeviceList"
+      initialRouteName="CustomerInfor"
       screenOptions={stackScreenConfig}>
       <Stack.Screen name="CustomerInfor" component={CustomerInfor} />
       <Stack.Screen name="DeviceList" component={DeviceList} />

@@ -10,11 +10,15 @@ import {ControllerInput} from '../../components/InputForm/ControllerInput'
 import customerStore from '../../common/store/customerInforStore'
 import {useNavigate} from '../../common/hooks/useNavigate'
 
-const {buttonSubmit, container, titleButton, navigationText, navigationButton} =
-  CustomerInforStyle
-
 const CustomerInfor = () => {
   const navigation = useNavigate()
+  const {
+    buttonSubmit,
+    container,
+    titleButton,
+    navigationText,
+    navigationButton,
+  } = CustomerInforStyle
   const {setCustomerInforForm, customerInfor} = customerStore
 
   const {control, handleSubmit} = useForm({

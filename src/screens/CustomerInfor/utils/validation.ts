@@ -1,13 +1,15 @@
 import {object, string, date} from 'yup'
+import {phoneRegExp, requiredText} from '../../../contants/Validation'
 
 export const customerSchema = object({
-  name: string().required('This is required.'),
-  phone: string().required('This is required.'),
-  email: string()
-    .email('Enter a valid email address')
-    .required('This is required.'),
-  address: string().required('This is required.'),
+  name: string().required(requiredText),
+  phone: string()
+    .min(8)
+    .matches(phoneRegExp, 'Phone number is not valid')
+    .required(requiredText),
+  email: string().email('Enter a valid email address').required(requiredText),
+  address: string().required(requiredText),
   birth: date()
     .default(() => new Date())
-    .required('This is required.'),
+    .required(requiredText),
 }).required()

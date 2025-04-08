@@ -1,5 +1,5 @@
 import {observer} from 'mobx-react'
-import {useCallback} from 'react'
+import {useCallback, useEffect} from 'react'
 import {View} from 'react-native'
 import {DeviceListStyles} from './style'
 import {SearchInput} from './components/Search'
@@ -8,10 +8,16 @@ import {DeviceItemType} from './utils/type'
 import {FlashList} from '@shopify/flash-list'
 import deviceStore from '../../common/store/deviceStore'
 import {height} from '../../common/utils/dimensions'
+import {generateDeviceItems} from './utils/generateItem'
 
 const DeviceList = () => {
   const {container} = DeviceListStyles
-  const {deviceList} = deviceStore
+  const {deviceList, setDeviceItem} = deviceStore
+
+  useEffect(() => {
+    const data = generateDeviceItems()
+    setDeviceItem(data)
+  }, [])
 
   const renderList = useCallback(({item}: {item: DeviceItemType}) => {
     return <DeviceItem key={item.id} item={item} />
