@@ -1,7 +1,7 @@
 // DateInput.tsx
 import React, {useState} from 'react'
 import {Controller} from 'react-hook-form'
-import {View, Text, Pressable, StyleSheet} from 'react-native'
+import {View, Text, Pressable} from 'react-native'
 import DatePicker from 'react-native-date-picker'
 import {ControllerDateInputStyles} from '../style'
 
@@ -9,24 +9,20 @@ type DateInputProps = {
   control: any
   name: string
   placeholder?: string
-  rules?: object
 }
 
 export const ControllerDateInput: React.FC<DateInputProps> = ({
   control,
   name,
   placeholder = 'Select date',
-  rules = {require: true},
 }) => {
   const {container, input, errorText} = ControllerDateInputStyles
 
   const [open, setOpen] = useState(false)
-
   return (
     <Controller
       control={control}
       name={name}
-      rules={rules}
       render={({field: {onChange, value}, fieldState: {error}}) => (
         <View style={container}>
           <Pressable onPress={() => setOpen(true)} style={input}>

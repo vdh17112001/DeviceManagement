@@ -7,21 +7,23 @@ import {yupResolver} from '@hookform/resolvers/yup'
 import {customerSchema} from './utils/validation'
 import {ControllerDateInput} from './components/ControllerDateInput'
 import {ControllerInput} from '../../components/InputForm/ControllerInput'
+import customerStore from '../../common/store/store'
+import {observer} from 'mobx-react'
 
 const CustomerInfor = () => {
   const {buttonSubmit, container, titleButton} = CustomerInforStyle
+
+  const {setCustomerInforForm, customerInfor} = customerStore
+
   const {control, handleSubmit} = useForm({
-    defaultValues: {
-      name: '',
-      phone: '',
-      email: '',
-      address: '',
-      birth: new Date(),
-    },
+    defaultValues: customerInfor as any,
     resolver: yupResolver(customerSchema),
   })
 
-  const onSubmit = (data: FormCustomerData) => console.log(data)
+  const _onSubmit = (data: FormCustomerData) => {
+    setCustomerInforForm(data)
+    console.log(`Hoang _onSubmit: ${data}`)
+  }
 
   return (
     <View style={container}>
@@ -36,11 +38,11 @@ const CustomerInfor = () => {
       <ControllerInput name="address" placeholder="Address" control={control} />
       <ControllerDateInput name="birth" control={control} />
 
-      <TouchableOpacity style={buttonSubmit} onPress={handleSubmit(onSubmit)}>
+      <TouchableOpacity style={buttonSubmit} onPress={handleSubmit(_onSubmit)}>
         <Text style={titleButton}>Submit</Text>
       </TouchableOpacity>
     </View>
   )
 }
 
-export default CustomerInfor
+export default observer(CustomerInfor)
