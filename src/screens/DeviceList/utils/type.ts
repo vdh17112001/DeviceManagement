@@ -6,4 +6,5 @@ export type DeviceItemType = {
    status: boolean
    note: string
    fee: number
+   selected: boolean
 }

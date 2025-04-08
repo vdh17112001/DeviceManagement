@@ -1,7 +1,7 @@
 import React from 'react'
 import {Controller} from 'react-hook-form'
-import {TextInput, Text, TextInputProps} from 'react-native'
-import {ControllerInputStyles} from './style'
+import {TextInput, Text, TextInputProps, StyleSheet} from 'react-native'
+import {errText, inputStyle} from '../../contants/FormInputStyles'
 
 type ControllerInputProps = {
    control: any
@@ -18,7 +18,7 @@ export const ControllerInput: React.FC<ControllerInputProps> = ({
    rules = {required: true},
    keyboardType = 'default',
 }) => {
-   const {errText, input} = ControllerInputStyles
+   const {errText, input} = styles
 
    return (
       <Controller
@@ -41,3 +41,8 @@ export const ControllerInput: React.FC<ControllerInputProps> = ({
       />
    )
 }
+
+const styles = StyleSheet.create({
+   errText: errText,
+   input: inputStyle,
+})

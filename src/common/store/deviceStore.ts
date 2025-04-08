@@ -12,17 +12,17 @@ class DeviceStore {
       this.deviceList = [...data]
    }
 
-   selectItem = (index: number) => {
-      const data = this.deviceList[index]
-
-      if (!data) {
-         return
-      }
-      data.status = !data.status
+   selectDeviceById = (id: string) => {
+      this.deviceList = this.deviceList.filter(item => {
+         if (item.id === id) {
+            item.selected = !item.selected
+         }
+         return item
+      })
    }
 
-   getSelectItem = () => {
-      return this.deviceList.map(v => !!v.status)
+   removeItem = (id: string) => {
+      this.deviceList = this.deviceList.filter(item => item.id !== id)
    }
 }
 

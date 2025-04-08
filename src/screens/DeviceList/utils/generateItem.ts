@@ -9,6 +9,7 @@ const generateDeviceItem = (): DeviceItemType => ({
    status: faker.datatype.boolean(),
    note: faker.lorem.sentence(),
    fee: parseFloat(faker.commerce.price({min: 10, max: 500})),
+   selected: false,
 })
 
 export const generateDeviceItems = (limit: number = 1000): DeviceItemType[] => {

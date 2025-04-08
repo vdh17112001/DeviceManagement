@@ -1,9 +1,9 @@
 // DateInput.tsx
 import React, {useState} from 'react'
 import {Controller} from 'react-hook-form'
-import {View, Text, Pressable} from 'react-native'
+import {View, Text, Pressable, StyleSheet} from 'react-native'
 import DatePicker from 'react-native-date-picker'
-import {ControllerDateInputStyles} from '../style'
+import {errText, inputStyle} from '../../../contants/FormInputStyles'
 
 type DateInputProps = {
    control: any
@@ -16,7 +16,7 @@ export const ControllerDateInput: React.FC<DateInputProps> = ({
    name,
    placeholder = 'Select date',
 }) => {
-   const {container, input, errorText} = ControllerDateInputStyles
+   const {container, input, errorText} = styles
 
    const [open, setOpen] = useState(false)
    return (
@@ -51,3 +51,14 @@ export const ControllerDateInput: React.FC<DateInputProps> = ({
       />
    )
 }
+
+const styles = StyleSheet.create({
+   container: {
+      marginBottom: 16,
+   },
+   input: {
+      ...inputStyle,
+      justifyContent: 'center',
+   },
+   errorText: {...errText, paddingLeft: 0, marginTop: 10},
+})

@@ -1,14 +1,15 @@
 import React from 'react'
-import {View, TouchableOpacity, Text} from 'react-native'
+import {View, TouchableOpacity, Text, StyleSheet} from 'react-native'
 import {useForm} from 'react-hook-form'
 import {FormCustomerData} from './utils/type'
-import {CustomerInforStyle} from './style'
 import {yupResolver} from '@hookform/resolvers/yup'
 import {customerSchema} from './utils/validation'
 import {ControllerDateInput} from './components/ControllerDateInput'
 import {ControllerInput} from '../../components/InputForm/ControllerInput'
 import customerStore from '../../common/store/customerInforStore'
 import {useNavigate} from '../../common/hooks/useNavigate'
+import {showToastSuccess} from '../../common/utils/toast'
+import {height, width} from '../../common/utils/dimensions'
 
 const CustomerInfor = () => {
    const navigation = useNavigate()
@@ -18,7 +19,7 @@ const CustomerInfor = () => {
       titleButton,
       navigationText,
       navigationButton,
-   } = CustomerInforStyle
+   } = styles
    const {setCustomerInforForm, customerInfor} = customerStore
 
    const {control, handleSubmit} = useForm({
@@ -27,7 +28,9 @@ const CustomerInfor = () => {
    })
 
    const _onSubmit = (data: FormCustomerData) => {
+      console.log('Hoang: data ', data)
       setCustomerInforForm(data)
+      showToastSuccess('Submit success')
    }
 
    const _navigate = () => {
@@ -64,3 +67,31 @@ const CustomerInfor = () => {
 }
 
 export default CustomerInfor
+
+const styles = StyleSheet.create({
+   container: {
+      flex: 1,
+      alignItems: 'center',
+      justifyContent: 'center',
+      gap: 10,
+   },
+   buttonSubmit: {
+      width: width * 0.9,
+      height: height * 0.05,
+      alignItems: 'center',
+      justifyContent: 'center',
+      backgroundColor: 'blue',
+   },
+   titleButton: {
+      fontSize: 15,
+      color: 'white',
+   },
+   navigationText: {
+      fontSize: 15,
+      color: 'black',
+   },
+   navigationButton: {
+      alignSelf: 'flex-end',
+      marginRight: 10,
+   },
+})
