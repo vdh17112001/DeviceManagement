@@ -11,50 +11,56 @@ import customerStore from '../../common/store/customerInforStore'
 import {useNavigate} from '../../common/hooks/useNavigate'
 
 const CustomerInfor = () => {
-  const navigation = useNavigate()
-  const {
-    buttonSubmit,
-    container,
-    titleButton,
-    navigationText,
-    navigationButton,
-  } = CustomerInforStyle
-  const {setCustomerInforForm, customerInfor} = customerStore
+   const navigation = useNavigate()
+   const {
+      buttonSubmit,
+      container,
+      titleButton,
+      navigationText,
+      navigationButton,
+   } = CustomerInforStyle
+   const {setCustomerInforForm, customerInfor} = customerStore
 
-  const {control, handleSubmit} = useForm({
-    defaultValues: customerInfor as any,
-    resolver: yupResolver(customerSchema),
-  })
+   const {control, handleSubmit} = useForm({
+      defaultValues: customerInfor as any,
+      resolver: yupResolver(customerSchema),
+   })
 
-  const _onSubmit = (data: FormCustomerData) => {
-    setCustomerInforForm(data)
-  }
+   const _onSubmit = (data: FormCustomerData) => {
+      setCustomerInforForm(data)
+   }
 
-  const _navigate = () => {
-    navigation.navigate('DeviceList')
-  }
+   const _navigate = () => {
+      navigation.navigate('DeviceList')
+   }
 
-  return (
-    <View style={container}>
-      <TouchableOpacity style={navigationButton} onPress={_navigate}>
-        <Text style={navigationText}>Go to Device List</Text>
-      </TouchableOpacity>
-      <ControllerInput name="name" placeholder="Name" control={control} />
-      <ControllerInput
-        name="phone"
-        placeholder="Phone number"
-        control={control}
-        keyboardType="number-pad"
-      />
-      <ControllerInput name="email" placeholder="Email" control={control} />
-      <ControllerInput name="address" placeholder="Address" control={control} />
-      <ControllerDateInput name="birth" control={control} />
+   return (
+      <View style={container}>
+         <TouchableOpacity style={navigationButton} onPress={_navigate}>
+            <Text style={navigationText}>Go to Device List</Text>
+         </TouchableOpacity>
+         <ControllerInput name="name" placeholder="Name" control={control} />
+         <ControllerInput
+            name="phone"
+            placeholder="Phone number"
+            control={control}
+            keyboardType="number-pad"
+         />
+         <ControllerInput name="email" placeholder="Email" control={control} />
+         <ControllerInput
+            name="address"
+            placeholder="Address"
+            control={control}
+         />
+         <ControllerDateInput name="birth" control={control} />
 
-      <TouchableOpacity style={buttonSubmit} onPress={handleSubmit(_onSubmit)}>
-        <Text style={titleButton}>Submit</Text>
-      </TouchableOpacity>
-    </View>
-  )
+         <TouchableOpacity
+            style={buttonSubmit}
+            onPress={handleSubmit(_onSubmit)}>
+            <Text style={titleButton}>Submit</Text>
+         </TouchableOpacity>
+      </View>
+   )
 }
 
 export default CustomerInfor

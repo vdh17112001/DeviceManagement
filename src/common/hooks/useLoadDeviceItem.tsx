@@ -3,18 +3,18 @@ import deviceStore from '../store/deviceStore'
 import {generateDeviceItems} from '../../screens/DeviceList/utils/generateItem'
 
 export const useLoadDeviceItem = () => {
-  const {deviceList, setDeviceItem} = deviceStore
+   const {deviceList, setDeviceItem} = deviceStore
 
-  useEffect(() => {
-    const data = generateDeviceItems()
-    setDeviceItem(data)
-  }, [])
+   useEffect(() => {
+      const data = generateDeviceItems()
+      setDeviceItem(data)
+   }, [setDeviceItem])
 
-  useEffect(() => {
-    console.log(`Hoang : ${deviceList}`)
-  }, [deviceList])
+   useEffect(() => {
+      console.log(`Hoang : ${deviceList}`)
+   }, [deviceList])
 
-  return {
-    data: deviceList,
-  }
+   return {
+      data: deviceList,
+   }
 }

@@ -6,21 +6,21 @@ import {SearchInputStyles} from '../style'
 type SearchInput = TextInputProps
 
 export const SearchInput = (props: SearchInput) => {
-  const [keyword, setKeyword] = useState('')
-  const {input} = SearchInputStyles
-  const onSearch = (text: string) => {}
+   const [keyword, setKeyword] = useState('')
+   const {input} = SearchInputStyles
+   const onSearch = () => {}
 
-  const handleChange = (text: string) => {
-    setKeyword(text)
-    debounce(onSearch, 400)
-  }
-  return (
-    <TextInput
-      style={input}
-      value={keyword}
-      {...props}
-      onChangeText={handleChange}
-      placeholder="Search item"
-    />
-  )
+   const handleChange = (text: string) => {
+      setKeyword(text)
+      debounce(onSearch, 400)
+   }
+   return (
+      <TextInput
+         style={input}
+         value={keyword}
+         {...props}
+         onChangeText={handleChange}
+         placeholder="Search item"
+      />
+   )
 }

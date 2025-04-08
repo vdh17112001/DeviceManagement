@@ -1,33 +1,32 @@
 import {makeAutoObservable} from 'mobx'
 import {DeviceItemType} from '../../screens/DeviceList/utils/type'
-import {generateDeviceItems} from '../../screens/DeviceList/utils/generateItem'
 
 class DeviceStore {
-  deviceList: DeviceItemType[] = []
+   deviceList: DeviceItemType[] = []
 
-  constructor() {
-    makeAutoObservable(this)
-  }
+   constructor() {
+      makeAutoObservable(this)
+   }
 
-  setDeviceItem = (data: DeviceItemType[]) => {
-    this.deviceList = [...data]
-  }
+   setDeviceItem = (data: DeviceItemType[]) => {
+      this.deviceList = [...data]
+   }
 
-  selectItem = (index: number) => {
-    const data = this.deviceList[index]
+   selectItem = (index: number) => {
+      const data = this.deviceList[index]
 
-    if (!data) {
-      return
-    }
-    data.status = !data.status
-  }
+      if (!data) {
+         return
+      }
+      data.status = !data.status
+   }
 
-  getSelectItem = () => {
-    return this.deviceList.map(v => !!v.status)
-  }
+   getSelectItem = () => {
+      return this.deviceList.map(v => !!v.status)
+   }
 }
 
 const deviceStore = new DeviceStore()
-console.log(`Hoang: create new device store`)
+console.log('Hoang: create new device store')
 
 export default deviceStore

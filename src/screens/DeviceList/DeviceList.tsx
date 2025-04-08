@@ -11,32 +11,32 @@ import {height} from '../../common/utils/dimensions'
 import {generateDeviceItems} from './utils/generateItem'
 
 const DeviceList = () => {
-  const {container} = DeviceListStyles
-  const {deviceList, setDeviceItem} = deviceStore
+   const {container} = DeviceListStyles
+   const {deviceList, setDeviceItem} = deviceStore
 
-  useEffect(() => {
-    const data = generateDeviceItems()
-    setDeviceItem(data)
-  }, [])
+   useEffect(() => {
+      const data = generateDeviceItems()
+      setDeviceItem(data)
+   }, [setDeviceItem])
 
-  const renderList = useCallback(({item}: {item: DeviceItemType}) => {
-    return <DeviceItem key={item.id} item={item} />
-  }, [])
+   const renderList = useCallback(({item}: {item: DeviceItemType}) => {
+      return <DeviceItem key={item.id} item={item} />
+   }, [])
 
-  return (
-    <View style={container}>
-      <SearchInput />
-      <FlashList
-        renderItem={renderList}
-        data={deviceList}
-        removeClippedSubviews
-        keyExtractor={({id}: DeviceItemType) => {
-          return id.toString()
-        }}
-        estimatedItemSize={height * 0.1}
-      />
-    </View>
-  )
+   return (
+      <View style={container}>
+         <SearchInput />
+         <FlashList
+            renderItem={renderList}
+            data={deviceList}
+            removeClippedSubviews
+            keyExtractor={({id}: DeviceItemType) => {
+               return id.toString()
+            }}
+            estimatedItemSize={height * 0.1}
+         />
+      </View>
+   )
 }
 
 export default observer(DeviceList)
