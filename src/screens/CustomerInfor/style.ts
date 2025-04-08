@@ -1,6 +1,6 @@
 import {StyleSheet} from 'react-native'
 import {height, width} from '../../common/utils/dimensions'
-import {errText, inputStyle} from '../../components/InputForm/style'
+import {errText, inputStyle} from '../../contants/FormInputStyles'
 
 export const CustomerInforStyle = StyleSheet.create({
   container: {
@@ -19,6 +19,14 @@ export const CustomerInforStyle = StyleSheet.create({
   titleButton: {
     fontSize: 15,
     color: 'white',
+  },
+  navigationText: {
+    fontSize: 15,
+    color: 'black',
+  },
+  navigationButton: {
+    alignSelf: 'flex-end',
+    marginRight: 10,
   },
 })
 

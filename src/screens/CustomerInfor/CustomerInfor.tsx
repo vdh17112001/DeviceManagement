@@ -7,12 +7,14 @@ import {yupResolver} from '@hookform/resolvers/yup'
 import {customerSchema} from './utils/validation'
 import {ControllerDateInput} from './components/ControllerDateInput'
 import {ControllerInput} from '../../components/InputForm/ControllerInput'
-import customerStore from '../../common/store/store'
-import {observer} from 'mobx-react'
+import customerStore from '../../common/store/customerInforStore'
+import {useNavigate} from '../../common/hooks/useNavigate'
+
+const {buttonSubmit, container, titleButton, navigationText, navigationButton} =
+  CustomerInforStyle
 
 const CustomerInfor = () => {
-  const {buttonSubmit, container, titleButton} = CustomerInforStyle
-
+  const navigation = useNavigate()
   const {setCustomerInforForm, customerInfor} = customerStore
 
   const {control, handleSubmit} = useForm({
@@ -22,11 +24,17 @@ const CustomerInfor = () => {
 
   const _onSubmit = (data: FormCustomerData) => {
     setCustomerInforForm(data)
-    console.log(`Hoang _onSubmit: ${data}`)
+  }
+
+  const _navigate = () => {
+    navigation.navigate('DeviceList')
   }
 
   return (
     <View style={container}>
+      <TouchableOpacity style={navigationButton} onPress={_navigate}>
+        <Text style={navigationText}>Go to Device List</Text>
+      </TouchableOpacity>
       <ControllerInput name="name" placeholder="Name" control={control} />
       <ControllerInput
         name="phone"
@@ -45,4 +53,4 @@ const CustomerInfor = () => {
   )
 }
 
-export default observer(CustomerInfor)
+export default CustomerInfor
