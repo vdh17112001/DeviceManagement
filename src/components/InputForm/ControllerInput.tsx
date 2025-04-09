@@ -9,6 +9,7 @@ type ControllerInputProps = {
    placeholder?: string
    rules?: object
    keyboardType?: TextInputProps['keyboardType']
+   multiline?: TextInputProps['multiline']
 }
 
 export const ControllerInput: React.FC<ControllerInputProps> = ({
@@ -17,6 +18,7 @@ export const ControllerInput: React.FC<ControllerInputProps> = ({
    placeholder = '',
    rules = {required: true},
    keyboardType = 'default',
+   multiline = false,
 }) => {
    const {errText, input} = styles
 
@@ -32,8 +34,9 @@ export const ControllerInput: React.FC<ControllerInputProps> = ({
                   placeholder={placeholder}
                   onBlur={onBlur}
                   onChangeText={onChange}
-                  value={value}
+                  value={value.toString()}
                   keyboardType={keyboardType}
+                  multiline={multiline}
                />
                {error && <Text style={errText}>{error.message}</Text>}
             </>

@@ -23,6 +23,5 @@ class SummaryStore {
 }
 
 const summaryStore = new SummaryStore()
-console.log('Hoang: create new summary store')
 
 export default summaryStore

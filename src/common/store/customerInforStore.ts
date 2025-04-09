@@ -20,6 +20,5 @@ class CustomerInforStore {
 }
 
 const customerStore = new CustomerInforStore()
-console.log('Hoang: create new store')
 
 export default customerStore

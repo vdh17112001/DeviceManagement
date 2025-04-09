@@ -1,5 +1,5 @@
 import {observer} from 'mobx-react'
-import {useCallback, useEffect, useState} from 'react'
+import {useCallback, useEffect} from 'react'
 import {StyleSheet, Text, View} from 'react-native'
 import {SearchInput} from './components/Search'
 import {DeviceItem} from './components/Item'
@@ -22,14 +22,11 @@ const DeviceList = () => {
    } = deviceStore
    const {summaryList, setSummaryItem, removeSummaryItem} = summaryStore
 
-   const [deviceData, setDeviceData] = useState<DeviceItemType[]>([])
-
    useEffect(() => {
       if (deviceList.length > 0) {
          return
       }
       const data = generateDeviceItems()
-      setDeviceData(data)
       setDeviceItem(data)
    }, [setDeviceItem])
 
@@ -47,19 +44,18 @@ const DeviceList = () => {
       ({item}: {item: DeviceItemType}) => {
          return (
             <DeviceItem
-               onPress={() => _handleSelectItem(item)}
+               onSelect={() => _handleSelectItem(item)}
                onDelete={() => _removeItem(item.id)}
                key={item.id}
                item={item}
             />
          )
       },
-      [deviceData],
+      [deviceList],
    )
 
    const _onSearch = (key: string) => {
-      const searchList = searchByKeyword(key)
-      setDeviceData(searchList)
+      searchByKeyword(key)
    }
 
    return (
@@ -67,16 +63,20 @@ const DeviceList = () => {
          <Toolbar routeName="CustomerInfor" />
          <SearchInput onSearch={_onSearch} />
          <View style={subView}>
-            <Text style={amount}>Amount of device: {deviceData.length}</Text>
+            <Text style={amount}>Amount of device: {deviceList.length}</Text>
             <Text style={amount}>Select: {summaryList.length}</Text>
          </View>
 
          <FlashList
             renderItem={renderList}
-            data={deviceData}
+            data={deviceList}
             removeClippedSubviews
             keyExtractor={({id}: DeviceItemType) => id.toString()}
             estimatedItemSize={height * 0.1}
+            onEndReachedThreshold={0.9}
+            onEndReached={() => {
+               console.log(`Hoang: end reached`)
+            }}
          />
       </View>
    )

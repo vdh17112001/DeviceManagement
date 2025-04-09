@@ -11,8 +11,8 @@ export const errText: TextStyle = {
 export const inputStyle = {
    color: 'black',
    width: width * 0.9,
-   height: height * 0.05,
    borderWidth: 1,
    borderRadius: 5,
    paddingLeft: 10,
+   maxHeight: height * 0.3,
 }

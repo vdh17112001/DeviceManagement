@@ -8,7 +8,7 @@ import {ControllerDateInput} from './components/ControllerDateInput'
 import {ControllerInput} from '../../components/InputForm/ControllerInput'
 import customerStore from '../../common/store/customerInforStore'
 import {useNavigate} from '../../common/hooks/useNavigate'
-import {showToastSuccess} from '../../common/utils/toast'
+import {showToast} from '../../common/utils/toast'
 import {height, width} from '../../common/utils/dimensions'
 
 const CustomerInfor = () => {
@@ -28,9 +28,8 @@ const CustomerInfor = () => {
    })
 
    const _onSubmit = (data: FormCustomerData) => {
-      console.log('Hoang: data ', data)
       setCustomerInforForm(data)
-      showToastSuccess('Submit success')
+      showToast('Submit success')
    }
 
    const _navigate = () => {
