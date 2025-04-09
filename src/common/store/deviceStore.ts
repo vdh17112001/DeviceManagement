@@ -24,6 +24,12 @@ class DeviceStore {
    removeItem = (id: string) => {
       this.deviceList = this.deviceList.filter(item => item.id !== id)
    }
+
+   searchByKeyword = (key: string) => {
+      return this.deviceList.filter(v =>
+         v.name.toLowerCase().includes(key.toLowerCase()),
+      )
+   }
 }
 
 const deviceStore = new DeviceStore()

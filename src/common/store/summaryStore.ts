@@ -9,6 +9,11 @@ class SummaryStore {
    }
 
    setSummaryItem = (data: DeviceItemType) => {
+      const index = this.summaryList.findIndex(v => v.id === data.id)
+      if (index !== -1) {
+         this.summaryList.splice(index, 1)
+         return
+      }
       this.summaryList = [...this.summaryList, data]
    }
 

@@ -1,11 +1,13 @@
-import {useState} from 'react'
+import {useMemo, useState} from 'react'
 import {StyleSheet, TextInput, TextInputProps} from 'react-native'
-import {debounce} from '../../../common/utils/debounce'
 import {inputStyle} from '../../../contants/FormInputStyles'
 
 type SearchInput = TextInputProps & {
    onSearch: (text: string) => void
 }
+
+let timeout: NodeJS.Timeout
+
 export const SearchInput = (props: SearchInput) => {
    const [keyword, setKeyword] = useState('')
    const {input} = styles
@@ -13,8 +15,10 @@ export const SearchInput = (props: SearchInput) => {
 
    const handleChange = (text: string) => {
       setKeyword(text)
-      debounce(() => onSearch(text), 500)
+      clearTimeout(timeout)
+      timeout = setTimeout(() => onSearch(text), 500)
    }
+
    return (
       <TextInput
          style={input}
