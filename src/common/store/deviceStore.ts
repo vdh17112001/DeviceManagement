@@ -9,20 +9,29 @@ class DeviceStore {
       makeAutoObservable(this)
    }
 
-   setDeviceItem = (data: DeviceItemType[]) => {
-      this.deviceList = [...data]
-      this.deviceListTemp = [...data]
+   setDeviceItem = (data: DeviceItemType[], key: string) => {
+      const addMore = [...this.deviceListTemp, ...data]
+      const newData = addMore.filter(v =>
+         v.name.toLowerCase().includes(key.toLowerCase()),
+      )
+      this.deviceList = [...newData]
+      this.deviceListTemp = addMore
    }
 
    selectDeviceById = (id: string) => {
-      const newData = this.deviceList.filter(item => {
-         if (item.id === id) {
-            item.selected = !item.selected
+      this.deviceList = this.deviceList.filter(v => {
+         if (v.id === id) {
+            v.selected = !v.selected
          }
-         return item
+         return v
       })
-      this.deviceList = newData
-      this.deviceListTemp = newData
+
+      this.deviceListTemp = this.deviceListTemp.filter(v => {
+         if (v.id === id) {
+            v.selected = !v.selected
+         }
+         return v
+      })
    }
 
    removeItem = (id: string) => {
@@ -32,9 +41,10 @@ class DeviceStore {
    }
 
    searchByKeyword = (key: string) => {
-      this.deviceList = this.deviceListTemp.filter(v =>
+      const data = this.deviceListTemp.filter(v =>
          v.name.toLowerCase().includes(key.toLowerCase()),
       )
+      this.deviceList = [...data]
    }
 
    updateDevice = (item: DeviceItemType) => {

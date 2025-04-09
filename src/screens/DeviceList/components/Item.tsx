@@ -1,4 +1,4 @@
-import React, {useCallback} from 'react'
+import React, {memo, useCallback, useEffect} from 'react'
 import {StyleSheet, Text, TouchableOpacity, View} from 'react-native'
 import {DeviceItemType} from '../utils/type'
 import {height, width} from '../../../common/utils/dimensions'
@@ -10,52 +10,58 @@ type DeviceItemProps = {
    onDelete: () => void
 }
 
-export const DeviceItem = ({item, onSelect, onDelete}: DeviceItemProps) => {
-   const {name, quantity, fee, selected} = item
-   const {
-      container,
-      text,
-      subView,
-      label,
-      nameStyle,
-      deleteText,
-      selectItem,
-      deleteButton,
-      editText,
-   } = styles
+export const DeviceItem = memo(
+   ({item, onSelect, onDelete}: DeviceItemProps) => {
+      const {name, quantity, fee, selected} = item
+      const {
+         container,
+         text,
+         subView,
+         label,
+         nameStyle,
+         deleteText,
+         selectItem,
+         deleteButton,
+         editText,
+      } = styles
 
-   const navigation = useNavigate()
+      const navigation = useNavigate()
 
-   const editItem = useCallback(() => {
-      navigation.navigate('EditDevice', item)
-   }, [item])
+      const editItem = useCallback(() => {
+         navigation.navigate('EditDevice', item)
+      }, [item])
 
-   return (
-      <View style={[container, selected && selectItem]}>
-         <TouchableOpacity onPress={onSelect}>
-            <View style={subView}>
-               <Text style={[text, nameStyle]}>{name}</Text>
-               <TouchableOpacity onPress={editItem}>
-                  <Text style={[text, editText]}>Edit</Text>
-               </TouchableOpacity>
-            </View>
-            <View style={subView}>
-               <View>
-                  <Text style={text}>
-                     <Text style={[label, text]}>Fee:</Text> {fee}
-                  </Text>
-                  <Text style={text}>
-                     <Text style={[label, text]}>Quantity:</Text> {quantity}
-                  </Text>
+      useEffect(() => {
+         console.log(`Hoang: selected ${selected}`)
+      }, [selected])
+
+      return (
+         <View style={[container, selected && selectItem]}>
+            <TouchableOpacity onPress={onSelect}>
+               <View style={subView}>
+                  <Text style={[text, nameStyle]}>{name}</Text>
+                  <TouchableOpacity onPress={editItem}>
+                     <Text style={[text, editText]}>Edit</Text>
+                  </TouchableOpacity>
                </View>
-               <TouchableOpacity style={deleteButton} onPress={onDelete}>
-                  <Text style={[text, deleteText]}>delete</Text>
-               </TouchableOpacity>
-            </View>
-         </TouchableOpacity>
-      </View>
-   )
-}
+               <View style={subView}>
+                  <View>
+                     <Text style={text}>
+                        <Text style={[label, text]}>Fee:</Text> {fee}
+                     </Text>
+                     <Text style={text}>
+                        <Text style={[label, text]}>Quantity:</Text> {quantity}
+                     </Text>
+                  </View>
+                  <TouchableOpacity style={deleteButton} onPress={onDelete}>
+                     <Text style={[text, deleteText]}>delete</Text>
+                  </TouchableOpacity>
+               </View>
+            </TouchableOpacity>
+         </View>
+      )
+   },
+)
 
 const styles = StyleSheet.create({
    container: {
