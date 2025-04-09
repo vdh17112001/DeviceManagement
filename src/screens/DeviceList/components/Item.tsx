@@ -1,4 +1,4 @@
-import React, {memo, useCallback, useEffect} from 'react'
+import React, {memo, useCallback} from 'react'
 import {StyleSheet, Text, TouchableOpacity, View} from 'react-native'
 import {DeviceItemType} from '../utils/type'
 import {height, width} from '../../../common/utils/dimensions'
@@ -30,10 +30,6 @@ export const DeviceItem = memo(
       const editItem = useCallback(() => {
          navigation.navigate('EditDevice', item)
       }, [item])
-
-      useEffect(() => {
-         console.log(`Hoang: selected ${selected}`)
-      }, [selected])
 
       return (
          <View style={[container, selected && selectItem]}>

@@ -13,14 +13,18 @@ import {editDeviceSchema} from './utils/validation'
 import {Checkbox} from '../../components/Checkbox/Checkbox'
 import {errText} from '../../contants/FormInputStyles'
 import deviceStore from '../../common/store/deviceStore'
+import {UploadImage} from './components/UploadImage'
 
 type Props = NativeStackScreenProps<MainStackParamList, 'EditDevice'>
 
 const EditDevice = ({route}: Props) => {
    const {buttonSubmit, container, titleButton, subView} = styles
-   const {updateDevice} = deviceStore
+   const {updateDevice, getImageList} = deviceStore
    const {control, handleSubmit} = useForm({
-      defaultValues: route.params as any,
+      defaultValues: {
+         ...route.params,
+         img: getImageList(route.params?.id || ''),
+      } as any,
       resolver: yupResolver(editDeviceSchema),
    })
 
@@ -90,7 +94,7 @@ const EditDevice = ({route}: Props) => {
                </View>
             )}
          />
-
+         <UploadImage deviceId={route.params?.id || ''} />
          <TouchableOpacity
             style={buttonSubmit}
             onPress={handleSubmit(_onSubmit)}>

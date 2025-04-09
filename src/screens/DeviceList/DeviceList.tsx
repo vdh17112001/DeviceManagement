@@ -52,7 +52,7 @@ const DeviceList = () => {
 
    return (
       <View style={container}>
-         <Toolbar routeName="CustomerInfor" />
+         <Toolbar routeName="Summary" />
          <SearchInput onSearch={_onSearch} />
          <View style={subView}>
             <Text style={amount}>Amount of device: {deviceList.length}</Text>

@@ -1,9 +1,12 @@
 import {makeAutoObservable} from 'mobx'
 import {DeviceItemType} from '../../screens/DeviceList/utils/type'
 
+type ImageList = Record<string, string[]>
+
 class DeviceStore {
    deviceList: DeviceItemType[] = []
    deviceListTemp: DeviceItemType[] = []
+   deviceImageList: ImageList[] = []
 
    constructor() {
       makeAutoObservable(this)
@@ -53,6 +56,25 @@ class DeviceStore {
          this.deviceList[index] = item
          this.deviceListTemp[index] = item
       }
+   }
+
+   uploadImageToDevice = (id: string, uri: string) => {
+      const imgList = this.deviceImageList
+      const device = imgList.filter(v => !!v[id])
+      if (!imgList.length || !device.length) {
+         imgList.push({
+            [`${id}`]: [uri],
+         })
+      } else {
+         device[0][id].push(uri)
+      }
+
+      this.deviceImageList = [...this.deviceImageList]
+   }
+
+   getImageList = (id: string) => {
+      const data = this.deviceImageList.filter(v => v[id])
+      return !data ? [] : data[0][id]
    }
 }
 

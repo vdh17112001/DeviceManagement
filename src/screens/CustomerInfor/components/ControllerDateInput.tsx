@@ -4,6 +4,7 @@ import {Controller} from 'react-hook-form'
 import {View, Text, Pressable, StyleSheet} from 'react-native'
 import DatePicker from 'react-native-date-picker'
 import {errText, inputStyle} from '../../../contants/FormInputStyles'
+import {height} from '../../../common/utils/dimensions'
 
 type DateInputProps = {
    control: any
@@ -59,6 +60,7 @@ const styles = StyleSheet.create({
    input: {
       ...inputStyle,
       justifyContent: 'center',
+      height: height * 0.05,
    },
    errorText: {...errText, paddingLeft: 0, marginTop: 10},
 })
