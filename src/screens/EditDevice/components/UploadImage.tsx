@@ -1,25 +1,19 @@
 import {FlatList, StyleSheet, Text, TouchableOpacity, View} from 'react-native'
 import {height, width} from '../../../common/utils/dimensions'
-import deviceStore from '../../../common/store/deviceStore'
+import {ImageList} from '../../../common/store/deviceStore'
 import {selectImageFromLibrary} from '../utils/uploadImage'
-import {useEffect, useState} from 'react'
 import {showToast} from '../../../common/utils/toast'
 import {observer} from 'mobx-react'
 import {ImageItem} from './ImageItem'
+import {Asset} from 'react-native-image-picker'
 interface Props {
    deviceId: string
+   data: ImageList[]
+   onUpload: (data: ImageList) => void
 }
 
-export const UploadImage = observer(({deviceId}: Props) => {
-   const {container, uploadButton, text, listView} = styles
-   const {deviceImageList} = deviceStore
-   const lst = deviceImageList.filter(v => v[deviceId])
-   const imgList = !lst.length ? [] : lst[0][deviceId]
-   const [img, setImg] = useState<string[]>([])
-
-   useEffect(() => {
-      setImg(imgList)
-   }, [imgList])
+export const UploadImage = observer(({deviceId, data, onUpload}: Props) => {
+   const {container, uploadButton, text} = styles
 
    const _handleUpload = async () => {
       if (!deviceId) {
@@ -29,15 +23,21 @@ export const UploadImage = observer(({deviceId}: Props) => {
       const uri = await selectImageFromLibrary()
 
       if (!!uri) {
-         setImg(prev => [...prev, uri])
+         const image = {
+            id: deviceId,
+            img: uri,
+         }
+         onUpload(image)
       }
    }
 
-   const renderItem = ({item}: {item: string}) => {
-      if (item === 'upload') {
+   const renderItem = ({item}: {item: ImageList}) => {
+      const {id, img} = item
+
+      if (id === 'upload') {
          return (
             <>
-               {img?.length < 5 ? (
+               {data?.length < 5 ? (
                   <TouchableOpacity
                      onPress={_handleUpload}
                      style={uploadButton}>
@@ -49,19 +49,17 @@ export const UploadImage = observer(({deviceId}: Props) => {
             </>
          )
       }
-      return <ImageItem uri={item} />
+      return <ImageItem uri={img?.uri || ''} />
    }
 
    return (
       <View style={container}>
-         <View style={listView}>
-            <FlatList
-               numColumns={3}
-               renderItem={renderItem}
-               data={[...img, 'upload']}
-               keyExtractor={(_, index) => index.toString()}
-            />
-         </View>
+         <FlatList
+            numColumns={3}
+            renderItem={renderItem}
+            data={[...data, {id: 'upload', img: {} as Asset}]}
+            keyExtractor={(_, index) => index.toString()}
+         />
       </View>
    )
 })
@@ -81,8 +79,5 @@ const styles = StyleSheet.create({
    text: {
       fontSize: 15,
       color: 'black',
-   },
-   listView: {
-      height: 'auto',
    },
 })

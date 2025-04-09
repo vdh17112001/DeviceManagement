@@ -7,6 +7,10 @@ interface Props {
 }
 
 export const ImageItem = ({uri}: Props) => {
+   if (!uri) {
+      return null
+   }
+
    const {container, size} = styles
 
    return (
@@ -16,7 +20,7 @@ export const ImageItem = ({uri}: Props) => {
             source={{
                uri: uri,
             }}
-            resizeMode={FastImage.resizeMode.cover}
+            resizeMode={FastImage.resizeMode.center}
          />
       </View>
    )

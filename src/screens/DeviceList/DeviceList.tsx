@@ -9,7 +9,6 @@ import {height, width} from '../../common/utils/dimensions'
 import {Toolbar} from '../../components/Header/Toolbar'
 import summaryStore from '../../common/store/summaryStore'
 import {useDeviceList} from '../../common/hooks/useDeviceList'
-import deviceStore from '../../common/store/deviceStore'
 
 const DeviceList = () => {
    const {container, amount, subView} = styles
@@ -21,6 +20,7 @@ const DeviceList = () => {
       setFilter,
       setLoadMore,
       selectDeviceById,
+      getDeviceImageById,
    } = useDeviceList()
 
    const {summaryList, setSummaryItem, removeSummaryItem} = summaryStore
@@ -36,12 +36,14 @@ const DeviceList = () => {
    }
 
    const renderList = ({item}: {item: DeviceItemType}) => {
+      const img = getDeviceImageById(item.id)
       return (
          <DeviceItem
             onSelect={() => _handleSelectItem(item.id)}
             onDelete={() => _removeItem(item.id)}
             key={item.id}
             item={item}
+            img={!!img.length ? img[0].img.uri : ''}
          />
       )
    }

@@ -2,6 +2,8 @@ import {launchImageLibrary} from 'react-native-image-picker'
 import {uploadImageOptions} from '../../../contants/UploadImage'
 
 export const selectImageFromLibrary = async () => {
+   console.log('Hoang: selectImageFromLibrary ')
    const result = await launchImageLibrary(uploadImageOptions)
-   return result?.assets && result.assets[0].uri
+   console.log(`Hoang: ${result} `)
+   return result?.assets && result.assets[0]
 }

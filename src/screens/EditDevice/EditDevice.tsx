@@ -1,7 +1,7 @@
 import {StyleSheet, Text, TouchableOpacity, View} from 'react-native'
 import {height, width} from '../../common/utils/dimensions'
 import {useNavigate} from '../../common/hooks/useNavigate'
-import {Controller, useForm} from 'react-hook-form'
+import {Controller, set, useForm} from 'react-hook-form'
 import {showToast} from '../../common/utils/toast'
 import {ControllerInput} from '../../components/InputForm/ControllerInput'
 import {yupResolver} from '@hookform/resolvers/yup'
@@ -12,21 +12,21 @@ import {DeviceItemType} from '../DeviceList/utils/type'
 import {editDeviceSchema} from './utils/validation'
 import {Checkbox} from '../../components/Checkbox/Checkbox'
 import {errText} from '../../contants/FormInputStyles'
-import deviceStore from '../../common/store/deviceStore'
+import deviceStore, {ImageList} from '../../common/store/deviceStore'
 import {UploadImage} from './components/UploadImage'
+import {useEffect, useState} from 'react'
 
 type Props = NativeStackScreenProps<MainStackParamList, 'EditDevice'>
 
 const EditDevice = ({route}: Props) => {
    const {buttonSubmit, container, titleButton, subView} = styles
-   const {updateDevice, getImageList} = deviceStore
+   const {updateDevice, uploadImageToDevice, getDeviceImageById} = deviceStore
    const {control, handleSubmit} = useForm({
-      defaultValues: {
-         ...route.params,
-         img: getImageList(route.params?.id || ''),
-      } as any,
+      defaultValues: route.params as any,
       resolver: yupResolver(editDeviceSchema),
    })
+
+   const [img, setImg] = useState<ImageList[]>([])
 
    const _onSubmit = (data: Omit<DeviceItemType, 'selected' | 'id'>) => {
       const params = route.params
@@ -39,9 +39,16 @@ const EditDevice = ({route}: Props) => {
          selected: params?.selected || false,
          ...data,
       }
+
       updateDevice(finalData)
+      uploadImageToDevice(img)
       showToast('Modify device success')
    }
+
+   useEffect(() => {
+      const image = getDeviceImageById(route.params?.id || '')
+      setImg(image)
+   }, [])
 
    return (
       <View style={container}>
@@ -94,7 +101,11 @@ const EditDevice = ({route}: Props) => {
                </View>
             )}
          />
-         <UploadImage deviceId={route.params?.id || ''} />
+         <UploadImage
+            deviceId={route.params?.id || ''}
+            data={img}
+            onUpload={data => setImg(prev => [...prev, data])}
+         />
          <TouchableOpacity
             style={buttonSubmit}
             onPress={handleSubmit(_onSubmit)}>

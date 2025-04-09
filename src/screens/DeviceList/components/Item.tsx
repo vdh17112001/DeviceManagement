@@ -3,15 +3,18 @@ import {StyleSheet, Text, TouchableOpacity, View} from 'react-native'
 import {DeviceItemType} from '../utils/type'
 import {height, width} from '../../../common/utils/dimensions'
 import {useNavigate} from '../../../common/hooks/useNavigate'
+import FastImage from '@d11/react-native-fast-image'
+import {noneImage} from '../../../asset'
 
 type DeviceItemProps = {
    item: DeviceItemType
    onSelect: () => void
    onDelete: () => void
+   img?: string
 }
 
 export const DeviceItem = memo(
-   ({item, onSelect, onDelete}: DeviceItemProps) => {
+   ({item, onSelect, onDelete, img}: DeviceItemProps) => {
       const {name, quantity, fee, selected} = item
       const {
          container,
@@ -23,6 +26,8 @@ export const DeviceItem = memo(
          selectItem,
          deleteButton,
          editText,
+         imageView,
+         image,
       } = styles
 
       const navigation = useNavigate()
@@ -32,8 +37,21 @@ export const DeviceItem = memo(
       }, [item])
 
       return (
-         <View style={[container, selected && selectItem]}>
-            <TouchableOpacity onPress={onSelect}>
+         <TouchableOpacity
+            onPress={onSelect}
+            style={[container, selected && selectItem]}>
+            <View style={imageView}>
+               <FastImage
+                  style={image}
+                  source={
+                     img
+                        ? {uri: img, priority: FastImage.priority.normal}
+                        : noneImage
+                  }
+                  resizeMode={FastImage.resizeMode.center}
+               />
+            </View>
+            <View>
                <View style={subView}>
                   <Text style={[text, nameStyle]}>{name}</Text>
                   <TouchableOpacity onPress={editItem}>
@@ -50,11 +68,11 @@ export const DeviceItem = memo(
                      </Text>
                   </View>
                   <TouchableOpacity style={deleteButton} onPress={onDelete}>
-                     <Text style={[text, deleteText]}>delete</Text>
+                     <Text style={[text, deleteText]}>Delete</Text>
                   </TouchableOpacity>
                </View>
-            </TouchableOpacity>
-         </View>
+            </View>
+         </TouchableOpacity>
       )
    },
 )
@@ -66,8 +84,9 @@ const styles = StyleSheet.create({
       borderWidth: 0.5,
       borderRadius: 10,
       alignSelf: 'center',
-      justifyContent: 'center',
+      justifyContent: 'space-between',
       marginVertical: 5,
+      flexDirection: 'row',
    },
    text: {
       fontSize: 14,
@@ -87,17 +106,29 @@ const styles = StyleSheet.create({
    subView: {
       flexDirection: 'row',
       justifyContent: 'space-between',
+      width: width * 0.6,
+      paddingHorizontal: 5,
    },
    deleteText: {
       color: 'red',
+      marginRight: 10,
+      marginTop: 20,
    },
    deleteButton: {
-      width: width * 0.2,
-      alignItems: 'center',
-      justifyContent: 'flex-end',
+      justifyContent: 'center',
    },
    selectItem: {
       borderWidth: 1,
       borderColor: 'blue',
+   },
+   imageView: {
+      width: width * 0.28,
+      height: height * 0.1,
+      justifyContent: 'center',
+      alignItems: 'center',
+   },
+   image: {
+      width: width * 0.28,
+      height: height * 0.08,
    },
 })

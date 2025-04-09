@@ -11,6 +11,7 @@ export const useDeviceList = () => {
       removeItem,
       selectDeviceById,
       searchByKeyword,
+      getDeviceImageById,
    } = deviceStore
 
    const genData = (limit?: number) => {
@@ -40,5 +41,6 @@ export const useDeviceList = () => {
       searchByKeyword,
       setLoadMore,
       setFilter,
+      getDeviceImageById,
    }
 }

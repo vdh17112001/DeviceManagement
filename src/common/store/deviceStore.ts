@@ -1,7 +1,11 @@
 import {makeAutoObservable} from 'mobx'
 import {DeviceItemType} from '../../screens/DeviceList/utils/type'
+import {Asset} from 'react-native-image-picker'
 
-type ImageList = Record<string, string[]>
+export type ImageList = {
+   id: string
+   img: Asset
+}
 
 class DeviceStore {
    deviceList: DeviceItemType[] = []
@@ -22,59 +26,60 @@ class DeviceStore {
    }
 
    selectDeviceById = (id: string) => {
-      this.deviceList = this.deviceList.filter(v => {
+      this.deviceList = this.deviceList.map(v => {
          if (v.id === id) {
-            v.selected = !v.selected
+            return {
+               ...v,
+               selected: !v.selected,
+            }
          }
          return v
       })
 
-      this.deviceListTemp = this.deviceListTemp.filter(v => {
+      this.deviceListTemp = this.deviceListTemp.map(v => {
          if (v.id === id) {
-            v.selected = !v.selected
+            return {
+               ...v,
+               selected: !v.selected,
+            }
          }
          return v
       })
    }
 
    removeItem = (id: string) => {
-      const newData = this.deviceList.filter(item => item.id !== id)
-      this.deviceList = newData
-      this.deviceListTemp = newData
+      this.deviceList = this.deviceList.filter(item => item.id !== id)
+      this.deviceListTemp = this.deviceListTemp.filter(item => item.id !== id)
+      this.deviceImageList = this.deviceImageList.filter(item => item.id !== id)
    }
 
    searchByKeyword = (key: string) => {
-      const data = this.deviceListTemp.filter(v =>
+      this.deviceList = this.deviceListTemp.filter(v =>
          v.name.toLowerCase().includes(key.toLowerCase()),
       )
-      this.deviceList = [...data]
    }
 
    updateDevice = (item: DeviceItemType) => {
       const index = this.deviceList.findIndex(v => v.id === item.id)
+      const indexListTemp = this.deviceListTemp.findIndex(v => v.id === item.id)
       if (index !== -1) {
          this.deviceList[index] = item
-         this.deviceListTemp[index] = item
+      }
+      if (indexListTemp !== -1) {
+         this.deviceListTemp[indexListTemp] = item
       }
    }
 
-   uploadImageToDevice = (id: string, uri: string) => {
-      const imgList = this.deviceImageList
-      const device = imgList.filter(v => !!v[id])
-      if (!imgList.length || !device.length) {
-         imgList.push({
-            [`${id}`]: [uri],
-         })
-      } else {
-         device[0][id].push(uri)
-      }
-
-      this.deviceImageList = [...this.deviceImageList]
+   uploadImageToDevice = (data: ImageList[]) => {
+      this.deviceImageList = [...this.deviceImageList, ...data]
    }
 
-   getImageList = (id: string) => {
-      const data = this.deviceImageList.filter(v => v[id])
-      return !data ? [] : data[0][id]
+   getDeviceImageById = (id: string) => {
+      return this.deviceImageList.filter(v => v.id === id)
+   }
+
+   getDeviceByListId = (id: string[]) => {
+      return this.deviceList.filter(v => id.includes(v.id))
    }
 }
 
