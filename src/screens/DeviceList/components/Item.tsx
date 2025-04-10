@@ -116,6 +116,8 @@ const styles = StyleSheet.create({
    editText: {
       padding: 8,
       paddingRight: 16,
+      color: 'black',
+      fontWeight: '500',
    },
    label: { fontWeight: 'bold' },
    subView: {
@@ -147,7 +149,6 @@ const styles = StyleSheet.create({
       height: height * 0.08,
    },
    disableStyle: {
-      backgroundColor: 'gray',
-      opacity: 0.5,
+      backgroundColor: '#d3d3d3',
    },
 })

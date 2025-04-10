@@ -7,7 +7,7 @@ export const editDeviceSchema = object({
    quantity: number()
       .integer('Value must be integer')
       .required(requiredText)
-      .typeError('Fee must be a number'),
+      .typeError('Quantity must be a number'),
    status: bool().required(requiredText),
    note: string().required(requiredText),
    fee: number().required(requiredText).typeError('Fee must be a number'),

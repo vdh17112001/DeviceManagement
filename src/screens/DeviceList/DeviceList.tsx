@@ -1,5 +1,5 @@
 import { observer } from 'mobx-react'
-import { useCallback, useEffect } from 'react'
+import { useCallback, useEffect, useMemo } from 'react'
 import { StyleSheet, Text, View } from 'react-native'
 import { SearchInput } from './components/Search'
 import { DeviceItem } from './components/Item'
@@ -23,7 +23,7 @@ const DeviceList = () => {
       getDeviceImageListById,
    } = useDeviceList()
 
-   const { summaryList, setSummaryItem, removeSummaryItem } = summaryStore
+   const { setSummaryItem, removeSummaryItem } = summaryStore
 
    const _handleSelectItem = (item: DeviceItemType) => {
       if (item.quantity === 0) {
@@ -63,13 +63,18 @@ const DeviceList = () => {
       setFilter(key)
    }
 
+   const selectedListLength = useMemo(
+      () => deviceList.filter(v => v.selected).length,
+      [deviceList],
+   )
+
    return (
       <View style={container}>
-         <Toolbar routeName="Summary" disableNext={!summaryList.length} />
+         <Toolbar routeName="Summary" disableNext={!selectedListLength} />
          <SearchInput onSearch={_onSearch} />
          <View style={subView}>
             <Text style={amount}>Amount of device: {deviceList.length}</Text>
-            <Text style={amount}>Select: {summaryList.length}</Text>
+            <Text style={amount}>Select: {selectedListLength}</Text>
          </View>
 
          <FlashList
