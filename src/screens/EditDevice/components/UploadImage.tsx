@@ -7,7 +7,7 @@ import {observer} from 'mobx-react'
 import {ImageItem} from './ImageItem'
 import {Asset} from 'react-native-image-picker'
 import {useCallback, useState} from 'react'
-import {ModalRemoveImage} from './ModalRemoveImage'
+import {ModalRemove} from '../../../components/Overlay/ModalRemove'
 interface Props {
    deviceId: string
    data: ImageList[]
@@ -26,7 +26,6 @@ export const UploadImage = observer(
             return
          }
          const imgInfor = await selectImageFromLibrary()
-         console.log(`Hoang: ${JSON.stringify(imgInfor)} `)
          if (!!imgInfor) {
             const image = {
                id: deviceId,
@@ -74,7 +73,8 @@ export const UploadImage = observer(
                keyExtractor={(_, index) => index.toString()}
             />
             {!!modalVisible && (
-               <ModalRemoveImage
+               <ModalRemove
+                  content="Are you sure you want to remove this image ?"
                   onRemove={() => {
                      onRemove(modalVisible)
                      setModalVisible('')

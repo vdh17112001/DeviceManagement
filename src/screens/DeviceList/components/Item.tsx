@@ -1,4 +1,4 @@
-import React, {memo, useCallback} from 'react'
+import React, {useCallback, useEffect} from 'react'
 import {StyleSheet, Text, TouchableOpacity, View} from 'react-native'
 import {DeviceItemType} from '../utils/type'
 import {height, width} from '../../../common/utils/dimensions'
@@ -13,69 +13,84 @@ type DeviceItemProps = {
    img?: string
 }
 
-export const DeviceItem = memo(
-   ({item, onSelect, onDelete, img}: DeviceItemProps) => {
-      const {name, quantity, fee, selected} = item
-      const {
-         container,
-         text,
-         subView,
-         label,
-         nameStyle,
-         deleteText,
-         selectItem,
-         deleteButton,
-         editText,
-         imageView,
-         image,
-      } = styles
+export const DeviceItem = ({
+   item,
+   onSelect,
+   onDelete,
+   img,
+}: DeviceItemProps) => {
+   const {name, quantity, fee, selected} = item
+   const {
+      container,
+      text,
+      subView,
+      label,
+      nameStyle,
+      deleteText,
+      selectItem,
+      deleteButton,
+      editText,
+      imageView,
+      image,
+      disableStyle,
+   } = styles
 
-      const navigation = useNavigate()
+   const navigation = useNavigate()
 
-      const editItem = useCallback(() => {
-         navigation.navigate('EditDevice', item)
-      }, [item])
+   const editItem = useCallback(() => {
+      navigation.navigate('EditDevice', item)
+   }, [item])
 
-      return (
-         <TouchableOpacity
-            onPress={onSelect}
-            style={[container, selected && selectItem]}>
-            <View style={imageView}>
-               <FastImage
-                  style={image}
-                  source={
-                     img
-                        ? {uri: img, priority: FastImage.priority.normal}
-                        : noneImage
-                  }
-                  resizeMode={FastImage.resizeMode.center}
-               />
+   const disableCondition = quantity === 0
+
+   useEffect(() => {
+      console.log(`Hoang: DeviceItem render ${item.id}`)
+   })
+
+   return (
+      <TouchableOpacity
+         disabled={disableCondition}
+         onPress={onSelect}
+         style={[
+            container,
+            selected && selectItem,
+            disableCondition && disableStyle,
+         ]}>
+         <View style={imageView}>
+            <FastImage
+               style={image}
+               source={
+                  img
+                     ? {uri: img, priority: FastImage.priority.normal}
+                     : noneImage
+               }
+               resizeMode={FastImage.resizeMode.center}
+            />
+         </View>
+         <View>
+            <View style={subView}>
+               <Text style={[text, nameStyle]}>{name}</Text>
+               <TouchableOpacity onPress={editItem}>
+                  <Text style={[text, editText]}>Edit</Text>
+               </TouchableOpacity>
             </View>
-            <View>
-               <View style={subView}>
-                  <Text style={[text, nameStyle]}>{name}</Text>
-                  <TouchableOpacity onPress={editItem}>
-                     <Text style={[text, editText]}>Edit</Text>
-                  </TouchableOpacity>
+            <View style={subView}>
+               <View>
+                  <Text style={text}>
+                     <Text style={[label, text]}>Fee:</Text> {fee}
+                  </Text>
+                  <Text style={text}>
+                     <Text style={[label, text]}>Quantity:</Text> {quantity}
+                  </Text>
                </View>
-               <View style={subView}>
-                  <View>
-                     <Text style={text}>
-                        <Text style={[label, text]}>Fee:</Text> {fee}
-                     </Text>
-                     <Text style={text}>
-                        <Text style={[label, text]}>Quantity:</Text> {quantity}
-                     </Text>
-                  </View>
-                  <TouchableOpacity style={deleteButton} onPress={onDelete}>
-                     <Text style={[text, deleteText]}>Delete</Text>
-                  </TouchableOpacity>
-               </View>
+               <TouchableOpacity style={deleteButton} onPress={onDelete}>
+                  <Text style={[text, deleteText]}>Delete</Text>
+               </TouchableOpacity>
             </View>
-         </TouchableOpacity>
-      )
-   },
-)
+         </View>
+      </TouchableOpacity>
+   )
+}
 
 const styles = StyleSheet.create({
    container: {
@@ -130,5 +145,9 @@ const styles = StyleSheet.create({
    image: {
       width: width * 0.28,
       height: height * 0.08,
+   },
+   disableStyle: {
+      backgroundColor: 'gray',
+      opacity: 0.5,
    },
 })

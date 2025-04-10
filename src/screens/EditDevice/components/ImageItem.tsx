@@ -2,16 +2,12 @@ import FastImage from '@d11/react-native-fast-image'
 import {StyleSheet, TouchableOpacity, View} from 'react-native'
 import {height, width} from '../../../common/utils/dimensions'
 
-
 interface Props {
    uri: string
    onPress: () => void
-
 }
 
 export const ImageItem = ({uri, onPress}: Props) => {
-
-
    if (!uri) {
       return null
    }
@@ -19,9 +15,7 @@ export const ImageItem = ({uri, onPress}: Props) => {
    const {container, size} = styles
 
    return (
-      <TouchableOpacity
-         onPress={onPress}
-         style={[container, size]}>
+      <TouchableOpacity onPress={onPress} style={[container, size]}>
          <FastImage
             style={size}
             source={{
@@ -29,7 +23,6 @@ export const ImageItem = ({uri, onPress}: Props) => {
             }}
             resizeMode={FastImage.resizeMode.center}
          />
-         
       </TouchableOpacity>
    )
 }

@@ -1,7 +1,6 @@
-import {StyleSheet, Text, TouchableOpacity, View} from 'react-native'
+import {StyleSheet, Text, View} from 'react-native'
 import {height, width} from '../../common/utils/dimensions'
-import {useNavigate} from '../../common/hooks/useNavigate'
-import {Controller, set, useForm} from 'react-hook-form'
+import {Controller, useForm} from 'react-hook-form'
 import {showToast} from '../../common/utils/toast'
 import {ControllerInput} from '../../components/InputForm/ControllerInput'
 import {yupResolver} from '@hookform/resolvers/yup'
@@ -14,48 +13,51 @@ import {Checkbox} from '../../components/Checkbox/Checkbox'
 import {errText} from '../../contants/FormInputStyles'
 import deviceStore, {ImageList} from '../../common/store/deviceStore'
 import {UploadImage} from './components/UploadImage'
-import {useEffect, useState} from 'react'
+import {useEffect} from 'react'
+import {ButtonSubmit} from '../../components/Button/ButtonSubmit'
 
 type Props = NativeStackScreenProps<MainStackParamList, 'EditDevice'>
 
+type EditDeviceSubmitType = DeviceItemType & {
+   image?: ImageList[]
+}
+
 const EditDevice = ({route}: Props) => {
-   const {buttonSubmit, container, titleButton, subView} = styles
-   const {updateDevice, uploadImageToDevice, getDeviceImageById} = deviceStore
+   const {container, subView} = styles
+   const {updateDevice, uploadImageToDevice, getDeviceImageListById} =
+      deviceStore
    const param = route.params
 
    const {control, handleSubmit} = useForm({
-      defaultValues: param as any,
+      defaultValues: {
+         ...param,
+         image: getDeviceImageListById(param?.id || ''),
+      } as any,
       resolver: yupResolver(editDeviceSchema),
    })
 
-   const [img, setImg] = useState<ImageList[]>([])
-
-   const _onSubmit = (data: Omit<DeviceItemType, 'selected' | 'id'>) => {
+   const _onSubmit = (data: Omit<EditDeviceSubmitType, 'selected' | 'id'>) => {
       if (!param) {
          showToast('Modify device fail', 'error')
          return
       }
+
+      const {image, ...fData} = data
+
       const finalData = {
          id: param?.id,
          selected: param?.selected || false,
-         ...data,
+         ...fData,
       }
 
       updateDevice(finalData)
-      uploadImageToDevice(param.id, img)
+      uploadImageToDevice(param.id, image || [])
       showToast('Modify device success')
    }
 
-   const _onRemove = (fileName: string) => {
-      console.log(`Hoang: ${fileName} `)
-      const newData = img.filter(v => v.img.fileName !== fileName)
-      setImg(newData)
-   }
-
    useEffect(() => {
-      const image = getDeviceImageById(param?.id || '')
-      setImg(image)
-   }, [])
+      console.log(`Hoang: EditDevice render`)
+   })
 
    return (
       <View style={container}>
@@ -108,17 +110,24 @@ const EditDevice = ({route}: Props) => {
                </View>
             )}
          />
-         <UploadImage
-            deviceId={param?.id || ''}
-            data={img}
-            onUpload={data => setImg(prev => [...prev, data])}
-            onRemove={_onRemove}
+         <Controller
+            control={control}
+            name={'image'}
+            render={({field: {onChange, value}}) => (
+               <UploadImage
+                  deviceId={param?.id || ''}
+                  data={value}
+                  onUpload={data => onChange([...value, data])}
+                  onRemove={(fileName: string) => {
+                     const data = [...value]
+                     const newData = data.filter((v: ImageList) => v.img.fileName !== fileName)
+                     onChange(newData)
+                  }}
+               />
+            )}
          />
-         <TouchableOpacity
-            style={buttonSubmit}
-            onPress={handleSubmit(_onSubmit)}>
-            <Text style={titleButton}>Save</Text>
-         </TouchableOpacity>
+
+         <ButtonSubmit label="Save" onPress={handleSubmit(_onSubmit)} />
       </View>
    )
 }
@@ -131,17 +140,7 @@ const styles = StyleSheet.create({
       alignItems: 'center',
       gap: 10,
    },
-   buttonSubmit: {
-      width: width * 0.9,
-      height: height * 0.05,
-      alignItems: 'center',
-      justifyContent: 'center',
-      backgroundColor: 'blue',
-   },
-   titleButton: {
-      fontSize: 15,
-      color: 'white',
-   },
+
    subView: {
       width: width * 0.9,
       height: height * 0.05,

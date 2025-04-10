@@ -1,14 +1,15 @@
-import {object, string, number, bool} from 'yup'
-import {positiveNumberText, requiredText} from '../../../contants/Validation'
+import {object, string, number, bool, array} from 'yup'
+import {requiredText} from '../../../contants/Validation'
 
 export const editDeviceSchema = object({
    name: string().required(requiredText),
    description: string().required(requiredText),
    quantity: number()
-      .moreThan(0, positiveNumberText)
       .integer('Value must be integer')
-      .required(requiredText),
+      .required(requiredText)
+      .typeError('Fee must be a number'),
    status: bool().required(requiredText),
    note: string().required(requiredText),
-   fee: number().moreThan(0, positiveNumberText).required(requiredText),
+   fee: number().required(requiredText).typeError('Fee must be a number'),
+   image: array().optional()
 }).required()

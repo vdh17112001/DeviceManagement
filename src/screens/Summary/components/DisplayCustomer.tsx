@@ -22,7 +22,7 @@ export const DisplayCustomer = () => {
             <Text style={[text, title]}>Address:</Text> {address}
          </Text>
          <Text style={text}>
-            <Text style={[text, title]}>Birth:</Text> {birth?.toString()}
+            <Text style={[text, title]}>Birth:</Text> {birth?.toLocaleDateString()}
          </Text>
       </View>
    )

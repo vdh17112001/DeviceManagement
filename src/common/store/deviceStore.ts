@@ -1,6 +1,7 @@
 import {makeAutoObservable} from 'mobx'
 import {DeviceItemType} from '../../screens/DeviceList/utils/type'
 import {Asset} from 'react-native-image-picker'
+import {QuantityListType} from './summaryStore'
 
 export type ImageList = {
    id: string
@@ -80,12 +81,31 @@ class DeviceStore {
       this.deviceImageList = [...newData, ...data]
    }
 
-   getDeviceImageById = (id: string) => {
+   getDeviceImageListById = (id: string) => {
       return this.deviceImageList.filter(v => v.id === id)
    }
 
    getDeviceByListId = (id: string[]) => {
       return this.deviceList.filter(v => id.includes(v.id))
+   }
+   getDeviceImageById = (id: string) => {
+      const data = this.getDeviceImageListById(id)
+      if (data.length > 0) {
+         return data[0].img.uri
+      }
+      return ''
+   }
+
+   updateDeviceAfterSubmit = (qList: QuantityListType[]) => {
+      this.deviceListTemp = this.deviceListTemp.map(v => {
+         const index = qList.findIndex(item => item.id === v.id)
+         if (index !== -1) {
+            v.quantity -= qList[index].quantity
+         }
+         v.selected = false
+         return v
+      })
+      this.deviceList = [...this.deviceListTemp]
    }
 }
 

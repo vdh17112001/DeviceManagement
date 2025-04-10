@@ -1,4 +1,4 @@
-import React from 'react'
+import React, {useEffect} from 'react'
 import {View, TouchableOpacity, Text, StyleSheet} from 'react-native'
 import {useForm} from 'react-hook-form'
 import {FormCustomerData} from './utils/type'
@@ -9,17 +9,11 @@ import {ControllerInput} from '../../components/InputForm/ControllerInput'
 import customerStore from '../../common/store/customerInforStore'
 import {useNavigate} from '../../common/hooks/useNavigate'
 import {showToast} from '../../common/utils/toast'
-import {height, width} from '../../common/utils/dimensions'
+import {ButtonSubmit} from '../../components/Button/ButtonSubmit'
 
 const CustomerInfor = () => {
    const navigation = useNavigate()
-   const {
-      buttonSubmit,
-      container,
-      titleButton,
-      navigationText,
-      navigationButton,
-   } = styles
+   const {container} = styles
    const {setCustomerInforForm, customerInfor} = customerStore
 
    const {control, handleSubmit} = useForm({
@@ -30,17 +24,19 @@ const CustomerInfor = () => {
    const _onSubmit = (data: FormCustomerData) => {
       setCustomerInforForm(data)
       showToast('Submit success')
+      _navigate()
    }
 
    const _navigate = () => {
       navigation.navigate('DeviceList')
    }
 
+   useEffect(() => {
+      console.log(`Hoang: CustomerInfor render`)
+   })
+
    return (
       <View style={container}>
-         <TouchableOpacity style={navigationButton} onPress={_navigate}>
-            <Text style={navigationText}>Go to Device List</Text>
-         </TouchableOpacity>
          <ControllerInput name="name" placeholder="Name" control={control} />
          <ControllerInput
             name="phone"
@@ -56,11 +52,8 @@ const CustomerInfor = () => {
          />
          <ControllerDateInput name="birth" control={control} />
 
-         <TouchableOpacity
-            style={buttonSubmit}
-            onPress={handleSubmit(_onSubmit)}>
-            <Text style={titleButton}>Submit</Text>
-         </TouchableOpacity>
+         <ButtonSubmit label="Submit" onPress={() => _navigate()} />
+         {/* <ButtonSubmit label="Submit" onPress={handleSubmit(_onSubmit)} /> */}
       </View>
    )
 }
@@ -73,24 +66,5 @@ const styles = StyleSheet.create({
       alignItems: 'center',
       justifyContent: 'center',
       gap: 10,
-   },
-   buttonSubmit: {
-      width: width * 0.9,
-      height: height * 0.05,
-      alignItems: 'center',
-      justifyContent: 'center',
-      backgroundColor: 'blue',
-   },
-   titleButton: {
-      fontSize: 15,
-      color: 'white',
-   },
-   navigationText: {
-      fontSize: 15,
-      color: 'black',
-   },
-   navigationButton: {
-      alignSelf: 'flex-end',
-      marginRight: 10,
    },
 })

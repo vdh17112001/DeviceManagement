@@ -11,7 +11,7 @@ export const useDeviceList = () => {
       removeItem,
       selectDeviceById,
       searchByKeyword,
-      getDeviceImageById,
+      getDeviceImageListById,
    } = deviceStore
 
    const genData = (limit?: number) => {
@@ -21,16 +21,18 @@ export const useDeviceList = () => {
 
    useEffect(() => {
       if (deviceList.length > 0) {
+         setDeviceItem([], filter)
          return
       }
-      genData() // gen 1000 item by default
+      setTimeout(() => genData(), 200) // gen 1000 item by default
    }, [])
 
    useEffect(() => {
-      if (deviceList.length > 0 && loadMore) {
+      if (deviceList.length > 10 && loadMore) {
          genData(100) // gen 100 item
          setLoadMore(false)
       }
+      console.log(`Hoang: loadMore ${loadMore}`)
    }, [loadMore])
 
    return {
@@ -41,6 +43,6 @@ export const useDeviceList = () => {
       searchByKeyword,
       setLoadMore,
       setFilter,
-      getDeviceImageById,
+      getDeviceImageListById,
    }
 }

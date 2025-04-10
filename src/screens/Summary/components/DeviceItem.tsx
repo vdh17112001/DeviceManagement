@@ -1,47 +1,47 @@
-import React, {memo, useCallback} from 'react'
+import React, {memo} from 'react'
 import {StyleSheet, Text, TouchableOpacity, View} from 'react-native'
 import {height, width} from '../../../common/utils/dimensions'
-import {useNavigate} from '../../../common/hooks/useNavigate'
 import {DeviceItemType} from '../../DeviceList/utils/type'
+import FastImage from '@d11/react-native-fast-image'
+import {noneImage} from '../../../asset'
+import {QuantityAction} from './QuanityAction'
+import {DeviveItemSummaryType} from '../../../common/store/summaryStore'
 
 type DeviceItemProps = {
-   item: DeviceItemType
-   onDelete: () => void
+   item: DeviveItemSummaryType
+   img: string
+   onUpdate?: (value: number) => void
 }
 
-export const DeviceItem = memo(({item, onDelete}: DeviceItemProps) => {
-   const {name, quantity, fee, selected} = item
-   const {
-      container,
-      text,
-      subView,
-      label,
-      nameStyle,
-      deleteText,
-      selectItem,
-      deleteButton,
-   } = styles
+export const DeviceItem = memo(({item, img, onUpdate}: DeviceItemProps) => {
+   const {name, quantity, fee} = item
+   const {container, text, subView, label, nameStyle, imageView, image} = styles
 
    return (
-      <View style={[container, selected && selectItem]}>
-         <View>
-            <View style={subView}>
-               <Text style={[text, nameStyle]}>{name}</Text>
-            </View>
-            <View style={subView}>
-               <View>
-                  <Text style={text}>
-                     <Text style={[label, text]}>Fee:</Text> {fee}
-                  </Text>
-                  <Text style={text}>
-                     <Text style={[label, text]}>Quantity:</Text> {quantity}
-                  </Text>
-               </View>
-               <TouchableOpacity style={deleteButton} onPress={onDelete}>
-                  <Text style={[text, deleteText]}>delete</Text>
-               </TouchableOpacity>
-            </View>
+      <View style={container}>
+         <View style={imageView}>
+            <FastImage
+               style={image}
+               source={
+                  img
+                     ? {uri: img, priority: FastImage.priority.normal}
+                     : noneImage
+               }
+               resizeMode={FastImage.resizeMode.center}
+            />
          </View>
+         <View style={subView}>
+            <Text style={[text, nameStyle]}>{name}</Text>
+            <Text style={text}>
+               <Text style={[label, text]}>Fee:</Text> {fee}
+            </Text>
+         </View>
+         <QuantityAction
+            quantity={quantity}
+            onUpdate={value => {
+               onUpdate?.(value)
+            }}
+         />
       </View>
    )
 })
@@ -53,8 +53,10 @@ const styles = StyleSheet.create({
       borderWidth: 0.5,
       borderRadius: 10,
       alignSelf: 'center',
-      justifyContent: 'center',
+      justifyContent: 'space-around',
       marginVertical: 5,
+      flexDirection: 'row',
+      backgroundColor: 'white',
    },
    text: {
       fontSize: 14,
@@ -67,19 +69,17 @@ const styles = StyleSheet.create({
    },
    label: {fontWeight: 'bold'},
    subView: {
-      flexDirection: 'row',
-      justifyContent: 'space-between',
+      width: '55%',
+      height: '100%',
    },
-   deleteText: {
-      color: 'red',
-   },
-   deleteButton: {
-      width: width * 0.2,
+   imageView: {
+      width: width * 0.28,
+      height: height * 0.1,
+      justifyContent: 'center',
       alignItems: 'center',
-      justifyContent: 'flex-end',
    },
-   selectItem: {
-      borderWidth: 1,
-      borderColor: 'blue',
+   image: {
+      width: width * 0.28,
+      height: height * 0.08,
    },
 })

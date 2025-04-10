@@ -6,10 +6,14 @@ import {StackName} from '../../contants/StackName'
 
 export const Toolbar = ({
    routeName,
+   disableBack = false,
+   disableNext = false,
 }: {
    routeName?: keyof MainStackParamList
+   disableBack?: boolean
+   disableNext?: boolean
 }) => {
-   const {container, text} = styles
+   const {container, text, disabledStyle} = styles
    const navigation = useNavigate()
 
    const goBack = () => {
@@ -22,12 +26,14 @@ export const Toolbar = ({
 
    return (
       <View style={container}>
-         <TouchableOpacity onPress={goBack}>
-            <Text style={text}>Go back</Text>
+         <TouchableOpacity disabled={disableBack} onPress={goBack}>
+            <Text style={[text, disableBack && disabledStyle]}>Go back</Text>
          </TouchableOpacity>
          {routeName && (
-            <TouchableOpacity onPress={goTo}>
-               <Text style={text}>Go to {StackName[routeName]}</Text>
+            <TouchableOpacity disabled={disableNext} onPress={goTo}>
+               <Text style={[text, disableNext && disabledStyle]}>
+                  Go to {StackName[routeName]}
+               </Text>
             </TouchableOpacity>
          )}
       </View>
@@ -46,5 +52,8 @@ const styles = StyleSheet.create({
    },
    text: {
       fontSize: 14,
+   },
+   disabledStyle: {
+      opacity: 0.5,
    },
 })

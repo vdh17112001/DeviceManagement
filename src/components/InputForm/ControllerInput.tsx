@@ -1,4 +1,4 @@
-import React from 'react'
+import React, { useEffect } from 'react'
 import {Controller} from 'react-hook-form'
 import {TextInput, Text, TextInputProps, StyleSheet} from 'react-native'
 import {errText, inputStyle} from '../../contants/FormInputStyles'
@@ -21,7 +21,9 @@ export const ControllerInput: React.FC<ControllerInputProps> = ({
    multiline = false,
 }) => {
    const {errText, input} = styles
-
+   useEffect(() => {
+      console.log(`Hoang: ControllerInput render `)
+   })
    return (
       <Controller
          control={control}

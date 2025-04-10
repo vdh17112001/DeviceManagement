@@ -20,14 +20,17 @@ const DeviceList = () => {
       setFilter,
       setLoadMore,
       selectDeviceById,
-      getDeviceImageById,
+      getDeviceImageListById,
    } = useDeviceList()
 
    const {summaryList, setSummaryItem, removeSummaryItem} = summaryStore
 
-   const _handleSelectItem = (id: string) => {
-      selectDeviceById(id) // TODO: fix can not select id after searching
-      setSummaryItem(id)
+   const _handleSelectItem = (item: DeviceItemType) => {
+      if (item.quantity === 0) {
+         return
+      }
+      selectDeviceById(item.id)
+      setSummaryItem(item)
    }
 
    const _removeItem = (id: string) => {
@@ -35,18 +38,26 @@ const DeviceList = () => {
       removeSummaryItem(id)
    }
 
-   const renderList = ({item}: {item: DeviceItemType}) => {
-      const img = getDeviceImageById(item.id)
-      return (
-         <DeviceItem
-            onSelect={() => _handleSelectItem(item.id)}
-            onDelete={() => _removeItem(item.id)}
-            key={item.id}
-            item={item}
-            img={!!img.length ? img[0].img.uri : ''}
-         />
-      )
-   }
+   useEffect(() => {
+      console.log(`Hoang: DeviceList render`)
+   })
+
+   const renderList = useCallback(
+      ({item}: {item: DeviceItemType}) => {
+         const img = getDeviceImageListById(item.id)
+         return (
+            <DeviceItem
+               onSelect={() => _handleSelectItem(item)}
+               onDelete={() => _removeItem(item.id)}
+               key={item.id}
+               item={item}
+               img={!!img.length ? img[0].img.uri : ''}
+            />
+         )
+      },
+      [deviceList],
+   )
+
    const _onSearch = (key: string) => {
       searchByKeyword(key)
       setFilter(key)
@@ -54,7 +65,7 @@ const DeviceList = () => {
 
    return (
       <View style={container}>
-         <Toolbar routeName="Summary" />
+         <Toolbar routeName="Summary" disableNext={!summaryList.length} />
          <SearchInput onSearch={_onSearch} />
          <View style={subView}>
             <Text style={amount}>Amount of device: {deviceList.length}</Text>
