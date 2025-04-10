@@ -10,7 +10,7 @@ import { MainStackParamList } from '../../navigation/MainStack'
 import { DeviceItemType } from '../DeviceList/utils/type'
 import { editDeviceSchema } from './utils/validation'
 import { Checkbox } from '../../components/Checkbox/Checkbox'
-import { errText } from '../../contants/FormInputStyles'
+import { errText } from '../../constants/FormInputStyles'
 import deviceStore, { ImageList } from '../../common/store/deviceStore'
 import { UploadImage } from './components/UploadImage'
 import { useEffect } from 'react'
@@ -55,9 +55,15 @@ const EditDevice = ({ route }: Props) => {
       showToast('Modify device success')
    }
 
-   useEffect(() => {
-      console.log('Hoang: EditDevice render')
-   })
+   const _onRemove = (
+      fileName: string,
+      value: ImageList[],
+      onChange: (...event: any[]) => void,
+   ) => {
+      const data = [...value]
+      const newData = data.filter((v: ImageList) => v.img.fileName !== fileName)
+      onChange(newData)
+   }
 
    return (
       <View style={container}>
@@ -106,7 +112,7 @@ const EditDevice = ({ route }: Props) => {
                         size={'sm'}
                      />
                   </View>
-                  {error && <Text style={errText}>{error.message}</Text>}
+                  {!!error && <Text style={errText}>{error.message}</Text>}
                </View>
             )}
          />
@@ -118,13 +124,9 @@ const EditDevice = ({ route }: Props) => {
                   deviceId={param?.id || ''}
                   data={value}
                   onUpload={data => onChange([...value, data])}
-                  onRemove={(fileName: string) => {
-                     const data = [...value]
-                     const newData = data.filter(
-                        (v: ImageList) => v.img.fileName !== fileName,
-                     )
-                     onChange(newData)
-                  }}
+                  onRemove={(fileName: string) =>
+                     _onRemove(fileName, value, onChange)
+                  }
                />
             )}
          />

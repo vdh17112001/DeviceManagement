@@ -6,7 +6,7 @@ import { height, width } from '../../../common/utils/dimensions'
 import { useEffect, useState } from 'react'
 import deviceStore from '../../../common/store/deviceStore'
 import summaryStore, {
-   DeviveItemSummaryType,
+   DeviceItemSummaryType,
 } from '../../../common/store/summaryStore'
 import { DeviceItem } from './DeviceItem'
 import { ModalRemove } from '../../../components/Overlay/ModalRemove'
@@ -22,10 +22,6 @@ const DeviceList = () => {
       getTotal()
    }, [])
 
-   useEffect(() => {
-      console.log('Hoang: DeviceList in Summary render ')
-   })
-
    const _onRemove = () => {
       setRemoveId('')
       removeSummaryItem(removeId)
@@ -33,7 +29,7 @@ const DeviceList = () => {
       getTotal()
    }
 
-   const renderList = ({ item }: { item: DeviveItemSummaryType }) => {
+   const renderList = ({ item }: { item: DeviceItemSummaryType }) => {
       const img = getDeviceImageById(item.id)
       return (
          <DeviceItem
@@ -57,7 +53,7 @@ const DeviceList = () => {
             renderItem={renderList}
             data={summaryList}
             removeClippedSubviews
-            keyExtractor={({ id }: DeviveItemSummaryType) => id.toString()}
+            keyExtractor={({ id }: DeviceItemSummaryType) => id.toString()}
             estimatedItemSize={height * 0.1}
             showsVerticalScrollIndicator={false}
          />

@@ -1,5 +1,5 @@
 import { array, bool, number, object, string } from 'yup'
-import { requiredText } from '../../../contants/Validation'
+import { requiredText } from '../../../constants/Validation'
 
 export const editDeviceSchema = object({
    name: string().required(requiredText),

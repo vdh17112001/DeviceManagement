@@ -24,18 +24,18 @@ interface Props {
 export const UploadImage = observer(
    ({ deviceId, data, onUpload, onRemove }: Props) => {
       const { container, uploadButton, text } = styles
-      const [modalVisible, setModalVisible] = useState('')
+      const [removeImgId, setRemoveImgId] = useState('')
 
       const _handleUpload = async () => {
          if (!deviceId) {
             showToast('Device does not exist', 'error')
             return
          }
-         const imgInfor = await selectImageFromLibrary()
-         if (imgInfor) {
+         const imgInfo = await selectImageFromLibrary()
+         if (imgInfo) {
             const image = {
                id: deviceId,
-               img: imgInfor,
+               img: imgInfo,
             }
             onUpload(image)
          }
@@ -62,7 +62,7 @@ export const UploadImage = observer(
             }
             return (
                <ImageItem
-                  onPress={() => setModalVisible(img?.fileName || '')}
+                  onPress={() => setRemoveImgId(img?.fileName || '')}
                   uri={img?.uri || ''}
                />
             )
@@ -78,14 +78,14 @@ export const UploadImage = observer(
                data={[...data, { id: 'upload', img: {} as Asset }]}
                keyExtractor={(_, index) => index.toString()}
             />
-            {!!modalVisible && (
+            {!!removeImgId && (
                <ModalRemove
                   content="Are you sure you want to remove this image ?"
                   onRemove={() => {
-                     onRemove(modalVisible)
-                     setModalVisible('')
+                     onRemove(removeImgId)
+                     setRemoveImgId('')
                   }}
-                  onClose={() => setModalVisible('')}
+                  onClose={() => setRemoveImgId('')}
                />
             )}
          </View>

@@ -90,7 +90,7 @@ class DeviceStore {
    }
    getDeviceImageById = (id: string) => {
       const data = this.getDeviceImageListById(id)
-      if (data.length > 0) {
+      if (data.length) {
          return data[0].img.uri
       }
       return ''

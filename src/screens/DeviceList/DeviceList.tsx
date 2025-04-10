@@ -26,7 +26,7 @@ const DeviceList = () => {
    const { setSummaryItem, removeSummaryItem } = summaryStore
 
    const _handleSelectItem = (item: DeviceItemType) => {
-      if (item.quantity === 0) {
+      if (!item.quantity) {
          return
       }
       selectDeviceById(item.id)
@@ -38,18 +38,15 @@ const DeviceList = () => {
       removeSummaryItem(id)
    }
 
-   useEffect(() => {
-      console.log('Hoang: DeviceList render')
-   })
-
    const renderList = useCallback(
       ({ item }: { item: DeviceItemType }) => {
-         const img = getDeviceImageListById(item.id)
+         const { id } = item
+         const img = getDeviceImageListById(id)
          return (
             <DeviceItem
                onSelect={() => _handleSelectItem(item)}
-               onDelete={() => _removeItem(item.id)}
-               key={item.id}
+               onDelete={() => _removeItem(id)}
+               key={id}
                item={item}
                img={img.length ? img[0].img.uri : ''}
             />

@@ -1,7 +1,7 @@
 import { makeAutoObservable } from 'mobx'
 import { DeviceItemType } from '../../screens/DeviceList/utils/type'
 
-export type DeviveItemSummaryType = DeviceItemType & {
+export type DeviceItemSummaryType = DeviceItemType & {
    orderQuantity: number
 }
 
@@ -10,7 +10,7 @@ export type QuantityListType = {
    quantity: number
 }
 class SummaryStore {
-   summaryList: DeviveItemSummaryType[] = []
+   summaryList: DeviceItemSummaryType[] = []
    total: number = 0
    constructor() {
       makeAutoObservable(this)
@@ -22,7 +22,7 @@ class SummaryStore {
          this.summaryList.splice(index, 1)
          return
       }
-      const newItem: DeviveItemSummaryType = {
+      const newItem: DeviceItemSummaryType = {
          ...item,
          orderQuantity: 1,
       }
@@ -51,7 +51,6 @@ class SummaryStore {
    clearSummary = () => {
       this.summaryList = []
       this.total = 0
-      console.log('Hoang: clear ')
    }
 
    getQuantityList = () => {

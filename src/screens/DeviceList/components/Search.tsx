@@ -1,6 +1,6 @@
 import { useState } from 'react'
 import { StyleSheet, TextInput, TextInputProps } from 'react-native'
-import { inputStyle } from '../../../contants/FormInputStyles'
+import { inputStyle } from '../../../constants/FormInputStyles'
 
 interface SearchInputProps extends TextInputProps {
    onSearch: (text: string) => void

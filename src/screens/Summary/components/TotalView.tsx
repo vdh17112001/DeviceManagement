@@ -1,7 +1,6 @@
 import { StyleSheet, Text, View } from 'react-native'
 import { width } from '../../../common/utils/dimensions'
 import summaryStore from '../../../common/store/summaryStore'
-import { useEffect } from 'react'
 import { observer } from 'mobx-react'
 import { ButtonSubmit } from '../../../components/Button/ButtonSubmit'
 import { useNavigate } from '../../../common/hooks/useNavigate'
@@ -10,10 +9,6 @@ export const TotalView = observer(() => {
    const { container, text, title, totalStyle } = styles
    const { total } = summaryStore
    const navigation = useNavigate()
-
-   useEffect(() => {
-      console.log('Hoang: TotalView render ')
-   })
 
    return (
       <View style={container}>

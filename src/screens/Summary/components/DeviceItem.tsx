@@ -4,10 +4,10 @@ import { height, width } from '../../../common/utils/dimensions'
 import FastImage from '@d11/react-native-fast-image'
 import { noneImage } from '../../../asset'
 import { QuantityAction } from './QuanityAction'
-import { DeviveItemSummaryType } from '../../../common/store/summaryStore'
+import { DeviceItemSummaryType } from '../../../common/store/summaryStore'
 
 type DeviceItemProps = {
-   item: DeviveItemSummaryType
+   item: DeviceItemSummaryType
    img: string
    onUpdate?: (value: number) => void
 }

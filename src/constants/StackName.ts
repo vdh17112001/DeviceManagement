@@ -1,9 +1,9 @@
 import { MainStackParamList } from '../navigation/MainStack'
 
 export const StackName: Record<keyof MainStackParamList, string> = {
-   CustomerInfor: 'Customer Infor',
+   CustomerInfo: 'Customer Info',
    DeviceList: 'Device List',
    EditDevice: 'Edit Device',
-   Summary: 'Sumary',
+   Summary: 'Summary',
    Receipt: 'Receipt',
 }

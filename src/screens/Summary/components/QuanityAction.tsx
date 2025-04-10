@@ -7,38 +7,37 @@ interface QuantityActionProps {
    quantity: number
 }
 
-export const QuantityAction = ({
-   onUpdate,
-
-   quantity,
-}: QuantityActionProps) => {
+export const QuantityAction = ({ onUpdate, quantity }: QuantityActionProps) => {
    const { container, actionButton, text, disabledStyle } = styles
 
    const [value, setValue] = useState(1)
-   const inCreateaseDisabled = value === quantity
-   const decreaseDisabled = value === 0
+   const inCreaseDisabled = value === quantity
+   const decreaseDisabled = !value
+
+   const _onIncrease = () => {
+      const v = value + 1
+      onUpdate(v)
+      setValue(v)
+   }
+   const _onDecrease = () => {
+      const v = value - 1
+      onUpdate(v)
+      if (v) {
+         setValue(v)
+      }
+   }
    return (
       <View style={container}>
          <TouchableOpacity
-            disabled={inCreateaseDisabled}
-            onPress={() => {
-               const v = value + 1
-               onUpdate(v)
-               setValue(v)
-            }}
+            disabled={inCreaseDisabled}
+            onPress={() => _onIncrease()}
             style={actionButton}>
-            <Text style={[text, inCreateaseDisabled && disabledStyle]}>+</Text>
+            <Text style={[text, inCreaseDisabled && disabledStyle]}>+</Text>
          </TouchableOpacity>
          <Text style={text}>{value}</Text>
          <TouchableOpacity
-            disabled={value === 0}
-            onPress={() => {
-               const v = value - 1
-               onUpdate(v)
-               if (v !== 0) {
-                  setValue(v)
-               }
-            }}
+            disabled={decreaseDisabled}
+            onPress={_onDecrease}
             style={actionButton}>
             <Text style={[text, decreaseDisabled && disabledStyle]}>-</Text>
          </TouchableOpacity>

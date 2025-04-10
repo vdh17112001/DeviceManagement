@@ -2,20 +2,20 @@ import React, { useState } from 'react'
 import { Controller } from 'react-hook-form'
 import { Pressable, StyleSheet, Text, View } from 'react-native'
 import DatePicker from 'react-native-date-picker'
-import { errText, inputStyle } from '../../../contants/FormInputStyles'
+import { errText, inputStyle } from '../../../constants/FormInputStyles'
 import { height } from '../../../common/utils/dimensions'
 
-type DateInputProps = {
+interface DateInputProps {
    control: any
    name: string
    placeholder?: string
 }
 
-export const ControllerDateInput: React.FC<DateInputProps> = ({
+export const ControllerDateInput = ({
    control,
    name,
    placeholder = 'Select date',
-}) => {
+}: DateInputProps) => {
    const { container, input, errorText } = styles
 
    const [open, setOpen] = useState(false)
@@ -48,7 +48,7 @@ export const ControllerDateInput: React.FC<DateInputProps> = ({
                      onCancel={() => setOpen(false)}
                   />
 
-                  {error && <Text style={errorText}>{error.message}</Text>}
+                  {!!error && <Text style={errorText}>{error.message}</Text>}
                </View>
             )
          }}

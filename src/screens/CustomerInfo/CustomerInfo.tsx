@@ -6,34 +6,29 @@ import { yupResolver } from '@hookform/resolvers/yup'
 import { customerSchema } from './utils/validation'
 import { ControllerDateInput } from './components/ControllerDateInput'
 import { ControllerInput } from '../../components/InputForm/ControllerInput'
-import customerStore from '../../common/store/customerInforStore'
+import customerStore from '../../common/store/customerInfoStore'
 import { useNavigate } from '../../common/hooks/useNavigate'
 import { showToast } from '../../common/utils/toast'
 import { ButtonSubmit } from '../../components/Button/ButtonSubmit'
 
-const CustomerInfor = () => {
+const CustomerInfo = () => {
    const navigation = useNavigate()
    const { container } = styles
-   const { setCustomerInforForm, customerInfor } = customerStore
+   const { setCustomerInfoForm, customerInfo } = customerStore
 
    const { control, handleSubmit } = useForm({
-      defaultValues: customerInfor as any,
+      defaultValues: customerInfo as any,
       resolver: yupResolver(customerSchema),
    })
 
    const _onSubmit = (data: FormCustomerData) => {
-      setCustomerInforForm(data)
+      setCustomerInfoForm(data)
       showToast('Submit success')
       _navigate()
    }
 
-   const _navigate = () => {
-      navigation.navigate('DeviceList')
-   }
+   const _navigate = () => navigation.navigate('DeviceList')
 
-   useEffect(() => {
-      console.log('Hoang: CustomerInfor render')
-   })
 
    return (
       <View style={container}>
@@ -57,7 +52,7 @@ const CustomerInfor = () => {
    )
 }
 
-export default CustomerInfor
+export default CustomerInfo
 
 const styles = StyleSheet.create({
    container: {

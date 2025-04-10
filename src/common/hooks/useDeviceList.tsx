@@ -20,7 +20,7 @@ export const useDeviceList = () => {
    }
 
    useEffect(() => {
-      if (deviceList.length > 0) {
+      if (deviceList.length) {
          return
       }
       setTimeout(() => genData(), 200) // gen 1000 item by default

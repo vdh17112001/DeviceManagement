@@ -1,21 +1,17 @@
 import { StyleSheet, Text, View } from 'react-native'
-import customerStore from '../../common/store/customerInforStore'
 import summaryStore from '../../common/store/summaryStore'
 import deviceStore from '../../common/store/deviceStore'
 import { useEffect } from 'react'
 import { ButtonSubmit } from '../../components/Button/ButtonSubmit'
 import { useNavigate } from '../../common/hooks/useNavigate'
+import customerStore from '../../common/store/customerInfoStore'
 
 const Receipt = () => {
    const { container, text, title, nameText, totalText, subView } = styles
-   const { name } = customerStore.customerInfor
+   const { name } = customerStore.customerInfo
    const { total, clearSummary, getQuantityList } = summaryStore
    const { updateDeviceAfterSubmit } = deviceStore
    const navigation = useNavigate()
-
-   useEffect(() => {
-      console.log('Hoang: Receipt render')
-   })
 
    useEffect(() => {
       const quantityList = getQuantityList()
@@ -34,7 +30,7 @@ const Receipt = () => {
          </View>
          <ButtonSubmit
             label="Exit"
-            onPress={() => navigation.navigate('CustomerInfor')}
+            onPress={() => navigation.navigate('CustomerInfo')}
          />
       </View>
    )

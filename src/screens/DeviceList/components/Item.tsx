@@ -1,4 +1,4 @@
-import React, { useCallback, useEffect } from 'react'
+import React, { useEffect } from 'react'
 import { StyleSheet, Text, TouchableOpacity, View } from 'react-native'
 import { DeviceItemType } from '../utils/type'
 import { height, width } from '../../../common/utils/dimensions'
@@ -6,7 +6,7 @@ import { useNavigate } from '../../../common/hooks/useNavigate'
 import FastImage from '@d11/react-native-fast-image'
 import { noneImage } from '../../../asset'
 
-type DeviceItemProps = {
+interface DeviceItemProps {
    item: DeviceItemType
    onSelect: () => void
    onDelete: () => void
@@ -37,15 +37,9 @@ export const DeviceItem = ({
 
    const navigation = useNavigate()
 
-   const editItem = useCallback(() => {
-      navigation.navigate('EditDevice', item)
-   }, [item])
+   const editItem = () => navigation.navigate('EditDevice', item)
 
-   const disableCondition = quantity === 0
-
-   useEffect(() => {
-      console.log(`Hoang: DeviceItem render ${item.id}`)
-   })
+   const disableCondition = !quantity
 
    return (
       <TouchableOpacity

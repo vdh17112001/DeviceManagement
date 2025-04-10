@@ -8,9 +8,6 @@ import { useEffect } from 'react'
 const Summary = () => {
    const { container } = styles
 
-   useEffect(() => {
-      console.log('Hoang: Summary render')
-   })
    return (
       <View style={container}>
          <Toolbar />
