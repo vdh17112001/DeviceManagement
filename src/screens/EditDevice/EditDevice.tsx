@@ -21,32 +21,39 @@ type Props = NativeStackScreenProps<MainStackParamList, 'EditDevice'>
 const EditDevice = ({route}: Props) => {
    const {buttonSubmit, container, titleButton, subView} = styles
    const {updateDevice, uploadImageToDevice, getDeviceImageById} = deviceStore
+   const param = route.params
+
    const {control, handleSubmit} = useForm({
-      defaultValues: route.params as any,
+      defaultValues: param as any,
       resolver: yupResolver(editDeviceSchema),
    })
 
    const [img, setImg] = useState<ImageList[]>([])
 
    const _onSubmit = (data: Omit<DeviceItemType, 'selected' | 'id'>) => {
-      const params = route.params
-      if (!params) {
+      if (!param) {
          showToast('Modify device fail', 'error')
          return
       }
       const finalData = {
-         id: params?.id,
-         selected: params?.selected || false,
+         id: param?.id,
+         selected: param?.selected || false,
          ...data,
       }
 
       updateDevice(finalData)
-      uploadImageToDevice(img)
+      uploadImageToDevice(param.id, img)
       showToast('Modify device success')
    }
 
+   const _onRemove = (fileName: string) => {
+      console.log(`Hoang: ${fileName} `)
+      const newData = img.filter(v => v.img.fileName !== fileName)
+      setImg(newData)
+   }
+
    useEffect(() => {
-      const image = getDeviceImageById(route.params?.id || '')
+      const image = getDeviceImageById(param?.id || '')
       setImg(image)
    }, [])
 
@@ -102,9 +109,10 @@ const EditDevice = ({route}: Props) => {
             )}
          />
          <UploadImage
-            deviceId={route.params?.id || ''}
+            deviceId={param?.id || ''}
             data={img}
             onUpload={data => setImg(prev => [...prev, data])}
+            onRemove={_onRemove}
          />
          <TouchableOpacity
             style={buttonSubmit}

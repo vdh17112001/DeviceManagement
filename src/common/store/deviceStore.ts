@@ -70,8 +70,14 @@ class DeviceStore {
       }
    }
 
-   uploadImageToDevice = (data: ImageList[]) => {
-      this.deviceImageList = [...this.deviceImageList, ...data]
+   uploadImageToDevice = (idDevice: string, data: ImageList[]) => {
+      const newData = this.deviceImageList.filter(v => v.id !== idDevice)
+      this.deviceImageList = [...newData, ...data]
+   }
+
+   updateImageInDevice = (idDevice: string, data: ImageList[]) => {
+      const newData = this.deviceImageList.filter(v => v.id !== idDevice)
+      this.deviceImageList = [...newData, ...data]
    }
 
    getDeviceImageById = (id: string) => {

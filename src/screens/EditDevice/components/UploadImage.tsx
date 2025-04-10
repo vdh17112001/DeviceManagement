@@ -6,63 +6,86 @@ import {showToast} from '../../../common/utils/toast'
 import {observer} from 'mobx-react'
 import {ImageItem} from './ImageItem'
 import {Asset} from 'react-native-image-picker'
+import {useCallback, useState} from 'react'
+import {ModalRemoveImage} from './ModalRemoveImage'
 interface Props {
    deviceId: string
    data: ImageList[]
    onUpload: (data: ImageList) => void
+   onRemove: (fileName: string) => void
 }
 
-export const UploadImage = observer(({deviceId, data, onUpload}: Props) => {
-   const {container, uploadButton, text} = styles
+export const UploadImage = observer(
+   ({deviceId, data, onUpload, onRemove}: Props) => {
+      const {container, uploadButton, text} = styles
+      const [modalVisible, setModalVisible] = useState('')
 
-   const _handleUpload = async () => {
-      if (!deviceId) {
-         showToast('Device does not exist', 'error')
-         return
-      }
-      const uri = await selectImageFromLibrary()
-
-      if (!!uri) {
-         const image = {
-            id: deviceId,
-            img: uri,
+      const _handleUpload = async () => {
+         if (!deviceId) {
+            showToast('Device does not exist', 'error')
+            return
          }
-         onUpload(image)
+         const imgInfor = await selectImageFromLibrary()
+         console.log(`Hoang: ${JSON.stringify(imgInfor)} `)
+         if (!!imgInfor) {
+            const image = {
+               id: deviceId,
+               img: imgInfor,
+            }
+            onUpload(image)
+         }
       }
-   }
 
-   const renderItem = ({item}: {item: ImageList}) => {
-      const {id, img} = item
+      const renderItem = useCallback(
+         ({item}: {item: ImageList}) => {
+            const {id, img} = item
 
-      if (id === 'upload') {
-         return (
-            <>
-               {data?.length < 5 ? (
-                  <TouchableOpacity
-                     onPress={_handleUpload}
-                     style={uploadButton}>
-                     <Text style={text}>Upload</Text>
-                  </TouchableOpacity>
-               ) : (
-                  <></>
-               )}
-            </>
-         )
-      }
-      return <ImageItem uri={img?.uri || ''} />
-   }
+            if (id === 'upload') {
+               return (
+                  <>
+                     {data?.length < 5 ? (
+                        <TouchableOpacity
+                           onPress={_handleUpload}
+                           style={uploadButton}>
+                           <Text style={text}>Upload</Text>
+                        </TouchableOpacity>
+                     ) : (
+                        <></>
+                     )}
+                  </>
+               )
+            }
+            return (
+               <ImageItem
+                  onPress={() => setModalVisible(img?.fileName || '')}
+                  uri={img?.uri || ''}
+               />
+            )
+         },
+         [data],
+      )
 
-   return (
-      <View style={container}>
-         <FlatList
-            numColumns={3}
-            renderItem={renderItem}
-            data={[...data, {id: 'upload', img: {} as Asset}]}
-            keyExtractor={(_, index) => index.toString()}
-         />
-      </View>
-   )
-})
+      return (
+         <View style={container}>
+            <FlatList
+               numColumns={3}
+               renderItem={renderItem}
+               data={[...data, {id: 'upload', img: {} as Asset}]}
+               keyExtractor={(_, index) => index.toString()}
+            />
+            {!!modalVisible && (
+               <ModalRemoveImage
+                  onRemove={() => {
+                     onRemove(modalVisible)
+                     setModalVisible('')
+                  }}
+                  onClose={() => setModalVisible('')}
+               />
+            )}
+         </View>
+      )
+   },
+)
 
 const styles = StyleSheet.create({
    container: {
