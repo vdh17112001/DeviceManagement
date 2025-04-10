@@ -1,13 +1,19 @@
-import {FlatList, StyleSheet, Text, TouchableOpacity, View} from 'react-native'
-import {height, width} from '../../../common/utils/dimensions'
-import {ImageList} from '../../../common/store/deviceStore'
-import {selectImageFromLibrary} from '../utils/uploadImage'
-import {showToast} from '../../../common/utils/toast'
-import {observer} from 'mobx-react'
-import {ImageItem} from './ImageItem'
-import {Asset} from 'react-native-image-picker'
-import {useCallback, useState} from 'react'
-import {ModalRemove} from '../../../components/Overlay/ModalRemove'
+import {
+   FlatList,
+   StyleSheet,
+   Text,
+   TouchableOpacity,
+   View,
+} from 'react-native'
+import { height, width } from '../../../common/utils/dimensions'
+import { ImageList } from '../../../common/store/deviceStore'
+import { selectImageFromLibrary } from '../utils/uploadImage'
+import { showToast } from '../../../common/utils/toast'
+import { observer } from 'mobx-react'
+import { ImageItem } from './ImageItem'
+import { Asset } from 'react-native-image-picker'
+import { useCallback, useState } from 'react'
+import { ModalRemove } from '../../../components/Overlay/ModalRemove'
 interface Props {
    deviceId: string
    data: ImageList[]
@@ -16,8 +22,8 @@ interface Props {
 }
 
 export const UploadImage = observer(
-   ({deviceId, data, onUpload, onRemove}: Props) => {
-      const {container, uploadButton, text} = styles
+   ({ deviceId, data, onUpload, onRemove }: Props) => {
+      const { container, uploadButton, text } = styles
       const [modalVisible, setModalVisible] = useState('')
 
       const _handleUpload = async () => {
@@ -26,7 +32,7 @@ export const UploadImage = observer(
             return
          }
          const imgInfor = await selectImageFromLibrary()
-         if (!!imgInfor) {
+         if (imgInfor) {
             const image = {
                id: deviceId,
                img: imgInfor,
@@ -36,8 +42,8 @@ export const UploadImage = observer(
       }
 
       const renderItem = useCallback(
-         ({item}: {item: ImageList}) => {
-            const {id, img} = item
+         ({ item }: { item: ImageList }) => {
+            const { id, img } = item
 
             if (id === 'upload') {
                return (
@@ -69,7 +75,7 @@ export const UploadImage = observer(
             <FlatList
                numColumns={3}
                renderItem={renderItem}
-               data={[...data, {id: 'upload', img: {} as Asset}]}
+               data={[...data, { id: 'upload', img: {} as Asset }]}
                keyExtractor={(_, index) => index.toString()}
             />
             {!!modalVisible && (

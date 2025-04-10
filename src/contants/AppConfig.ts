@@ -1,1 +1,1 @@
-export const stackScreenConfig = {headerShown: false}
+export const stackScreenConfig = { headerShown: false }

@@ -1,7 +1,7 @@
-import {createNativeStackNavigator} from '@react-navigation/native-stack'
-import {stackScreenConfig} from '../contants/AppConfig'
-import {DeviceItemType} from '../screens/DeviceList/utils/type'
-import {lazy} from 'react'
+import { createNativeStackNavigator } from '@react-navigation/native-stack'
+import { stackScreenConfig } from '../contants/AppConfig'
+import { DeviceItemType } from '../screens/DeviceList/utils/type'
+import { lazy } from 'react'
 import Receipt from '../screens/Receipt/Receipt'
 
 const Customer = lazy(() => import('../screens/CustomerInfor/CustomerInfor'))

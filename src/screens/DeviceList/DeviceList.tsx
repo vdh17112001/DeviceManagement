@@ -1,17 +1,17 @@
-import {observer} from 'mobx-react'
-import {useCallback, useEffect} from 'react'
-import {StyleSheet, Text, View} from 'react-native'
-import {SearchInput} from './components/Search'
-import {DeviceItem} from './components/Item'
-import {DeviceItemType} from './utils/type'
-import {FlashList} from '@shopify/flash-list'
-import {height, width} from '../../common/utils/dimensions'
-import {Toolbar} from '../../components/Header/Toolbar'
+import { observer } from 'mobx-react'
+import { useCallback, useEffect } from 'react'
+import { StyleSheet, Text, View } from 'react-native'
+import { SearchInput } from './components/Search'
+import { DeviceItem } from './components/Item'
+import { DeviceItemType } from './utils/type'
+import { FlashList } from '@shopify/flash-list'
+import { height, width } from '../../common/utils/dimensions'
+import { Toolbar } from '../../components/Header/Toolbar'
 import summaryStore from '../../common/store/summaryStore'
-import {useDeviceList} from '../../common/hooks/useDeviceList'
+import { useDeviceList } from '../../common/hooks/useDeviceList'
 
 const DeviceList = () => {
-   const {container, amount, subView} = styles
+   const { container, amount, subView } = styles
 
    const {
       deviceList,
@@ -23,7 +23,7 @@ const DeviceList = () => {
       getDeviceImageListById,
    } = useDeviceList()
 
-   const {summaryList, setSummaryItem, removeSummaryItem} = summaryStore
+   const { summaryList, setSummaryItem, removeSummaryItem } = summaryStore
 
    const _handleSelectItem = (item: DeviceItemType) => {
       if (item.quantity === 0) {
@@ -39,11 +39,11 @@ const DeviceList = () => {
    }
 
    useEffect(() => {
-      console.log(`Hoang: DeviceList render`)
+      console.log('Hoang: DeviceList render')
    })
 
    const renderList = useCallback(
-      ({item}: {item: DeviceItemType}) => {
+      ({ item }: { item: DeviceItemType }) => {
          const img = getDeviceImageListById(item.id)
          return (
             <DeviceItem
@@ -51,7 +51,7 @@ const DeviceList = () => {
                onDelete={() => _removeItem(item.id)}
                key={item.id}
                item={item}
-               img={!!img.length ? img[0].img.uri : ''}
+               img={img.length ? img[0].img.uri : ''}
             />
          )
       },
@@ -76,7 +76,7 @@ const DeviceList = () => {
             renderItem={renderList}
             data={deviceList}
             removeClippedSubviews
-            keyExtractor={({id}: DeviceItemType) => id.toString()}
+            keyExtractor={({ id }: DeviceItemType) => id.toString()}
             estimatedItemSize={height * 0.1}
             onEndReachedThreshold={0.9}
             onEndReached={() => setLoadMore(true)}

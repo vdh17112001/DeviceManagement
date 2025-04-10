@@ -1,20 +1,20 @@
-import {StyleSheet, Text, View} from 'react-native'
-import {height, width} from '../../common/utils/dimensions'
-import {Controller, useForm} from 'react-hook-form'
-import {showToast} from '../../common/utils/toast'
-import {ControllerInput} from '../../components/InputForm/ControllerInput'
-import {yupResolver} from '@hookform/resolvers/yup'
-import {Toolbar} from '../../components/Header/Toolbar'
-import {NativeStackScreenProps} from '@react-navigation/native-stack'
-import {MainStackParamList} from '../../navigation/MainStack'
-import {DeviceItemType} from '../DeviceList/utils/type'
-import {editDeviceSchema} from './utils/validation'
-import {Checkbox} from '../../components/Checkbox/Checkbox'
-import {errText} from '../../contants/FormInputStyles'
-import deviceStore, {ImageList} from '../../common/store/deviceStore'
-import {UploadImage} from './components/UploadImage'
-import {useEffect} from 'react'
-import {ButtonSubmit} from '../../components/Button/ButtonSubmit'
+import { StyleSheet, Text, View } from 'react-native'
+import { height, width } from '../../common/utils/dimensions'
+import { Controller, useForm } from 'react-hook-form'
+import { showToast } from '../../common/utils/toast'
+import { ControllerInput } from '../../components/InputForm/ControllerInput'
+import { yupResolver } from '@hookform/resolvers/yup'
+import { Toolbar } from '../../components/Header/Toolbar'
+import { NativeStackScreenProps } from '@react-navigation/native-stack'
+import { MainStackParamList } from '../../navigation/MainStack'
+import { DeviceItemType } from '../DeviceList/utils/type'
+import { editDeviceSchema } from './utils/validation'
+import { Checkbox } from '../../components/Checkbox/Checkbox'
+import { errText } from '../../contants/FormInputStyles'
+import deviceStore, { ImageList } from '../../common/store/deviceStore'
+import { UploadImage } from './components/UploadImage'
+import { useEffect } from 'react'
+import { ButtonSubmit } from '../../components/Button/ButtonSubmit'
 
 type Props = NativeStackScreenProps<MainStackParamList, 'EditDevice'>
 
@@ -22,13 +22,13 @@ type EditDeviceSubmitType = DeviceItemType & {
    image?: ImageList[]
 }
 
-const EditDevice = ({route}: Props) => {
-   const {container, subView} = styles
-   const {updateDevice, uploadImageToDevice, getDeviceImageListById} =
+const EditDevice = ({ route }: Props) => {
+   const { container, subView } = styles
+   const { updateDevice, uploadImageToDevice, getDeviceImageListById } =
       deviceStore
    const param = route.params
 
-   const {control, handleSubmit} = useForm({
+   const { control, handleSubmit } = useForm({
       defaultValues: {
          ...param,
          image: getDeviceImageListById(param?.id || ''),
@@ -42,7 +42,7 @@ const EditDevice = ({route}: Props) => {
          return
       }
 
-      const {image, ...fData} = data
+      const { image, ...fData } = data
 
       const finalData = {
          id: param?.id,
@@ -56,7 +56,7 @@ const EditDevice = ({route}: Props) => {
    }
 
    useEffect(() => {
-      console.log(`Hoang: EditDevice render`)
+      console.log('Hoang: EditDevice render')
    })
 
    return (
@@ -96,7 +96,7 @@ const EditDevice = ({route}: Props) => {
          <Controller
             control={control}
             name={'status'}
-            render={({field: {onChange, value}, fieldState: {error}}) => (
+            render={({ field: { onChange, value }, fieldState: { error } }) => (
                <View>
                   <View style={subView}>
                      <Text>Status: </Text>
@@ -113,14 +113,16 @@ const EditDevice = ({route}: Props) => {
          <Controller
             control={control}
             name={'image'}
-            render={({field: {onChange, value}}) => (
+            render={({ field: { onChange, value } }) => (
                <UploadImage
                   deviceId={param?.id || ''}
                   data={value}
                   onUpload={data => onChange([...value, data])}
                   onRemove={(fileName: string) => {
                      const data = [...value]
-                     const newData = data.filter((v: ImageList) => v.img.fileName !== fileName)
+                     const newData = data.filter(
+                        (v: ImageList) => v.img.fileName !== fileName,
+                     )
                      onChange(newData)
                   }}
                />

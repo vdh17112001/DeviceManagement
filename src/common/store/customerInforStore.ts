@@ -1,5 +1,5 @@
-import {makeAutoObservable} from 'mobx'
-import {FormCustomerData} from '../../screens/CustomerInfor/utils/type'
+import { makeAutoObservable } from 'mobx'
+import { FormCustomerData } from '../../screens/CustomerInfor/utils/type'
 
 class CustomerInforStore {
    customerInfor: FormCustomerData = {

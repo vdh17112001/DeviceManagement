@@ -1,6 +1,6 @@
-import {StyleSheet, TouchableOpacity} from 'react-native'
-import {CheckIcon} from '../../asset/svg'
-import {height, width} from '../../common/utils/dimensions'
+import { StyleSheet, TouchableOpacity } from 'react-native'
+import { CheckIcon } from '../../asset/svg'
+import { height, width } from '../../common/utils/dimensions'
 
 interface Props {
    size: 'sm' | 'xl' | '2xl'
@@ -8,8 +8,8 @@ interface Props {
    onChange?: (state: boolean) => void
 }
 
-export const Checkbox = ({checked, onChange, size = 'sm'}: Props) => {
-   const {box, checkedStyle} = styles
+export const Checkbox = ({ checked, onChange, size = 'sm' }: Props) => {
+   const { box, checkedStyle } = styles
 
    return (
       <TouchableOpacity
@@ -25,8 +25,8 @@ const boxSize = {
       width: width * 0.04,
       height: height * 0.02,
    },
-   xl: {width: width * 0.05, height: height * 0.025},
-   '2xl': {width: width * 0.06, height: height * 0.03},
+   xl: { width: width * 0.05, height: height * 0.025 },
+   '2xl': { width: width * 0.06, height: height * 0.03 },
 }
 
 const styles = StyleSheet.create({

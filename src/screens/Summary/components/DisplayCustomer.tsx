@@ -1,11 +1,11 @@
-import {StyleSheet, Text, View} from 'react-native'
-import {width} from '../../../common/utils/dimensions'
+import { StyleSheet, Text, View } from 'react-native'
+import { width } from '../../../common/utils/dimensions'
 import customerStore from '../../../common/store/customerInforStore'
 
 export const DisplayCustomer = () => {
-   const {container, text, title} = styles
+   const { container, text, title } = styles
 
-   const {name, address, birth, email, phone} = customerStore.customerInfor
+   const { name, address, birth, email, phone } = customerStore.customerInfor
 
    return (
       <View style={container}>
@@ -22,7 +22,8 @@ export const DisplayCustomer = () => {
             <Text style={[text, title]}>Address:</Text> {address}
          </Text>
          <Text style={text}>
-            <Text style={[text, title]}>Birth:</Text> {birth?.toLocaleDateString()}
+            <Text style={[text, title]}>Birth:</Text>{' '}
+            {birth?.toLocaleDateString()}
          </Text>
       </View>
    )

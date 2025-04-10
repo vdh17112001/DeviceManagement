@@ -1,17 +1,17 @@
-import {useState} from 'react'
-import {StyleSheet, TextInput, TextInputProps} from 'react-native'
-import {inputStyle} from '../../../contants/FormInputStyles'
+import { useState } from 'react'
+import { StyleSheet, TextInput, TextInputProps } from 'react-native'
+import { inputStyle } from '../../../contants/FormInputStyles'
 
-type SearchInput = TextInputProps & {
+interface SearchInputProps extends TextInputProps {
    onSearch: (text: string) => void
 }
 
 let timeout: NodeJS.Timeout
 
-export const SearchInput = (props: SearchInput) => {
+export const SearchInput = (props: SearchInputProps) => {
    const [keyword, setKeyword] = useState('')
-   const {input} = styles
-   const {onSearch} = props
+   const { input } = styles
+   const { onSearch } = props
 
    const handleChange = (text: string) => {
       setKeyword(text)
@@ -21,9 +21,9 @@ export const SearchInput = (props: SearchInput) => {
 
    return (
       <TextInput
+         {...props}
          style={input}
          value={keyword}
-         {...props}
          onChangeText={handleChange}
          placeholder="Search item"
       />

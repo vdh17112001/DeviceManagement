@@ -1,5 +1,5 @@
-import {TextStyle} from 'react-native'
-import {height, width} from '../common/utils/dimensions'
+import { TextStyle } from 'react-native'
+import { height, width } from '../common/utils/dimensions'
 
 export const errText: TextStyle = {
    color: 'red',

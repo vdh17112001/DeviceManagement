@@ -1,20 +1,20 @@
-import {observer} from 'mobx-react'
+import { observer } from 'mobx-react'
 
-import {StyleSheet, View} from 'react-native'
-import {FlashList} from '@shopify/flash-list'
-import {height, width} from '../../../common/utils/dimensions'
-import {useEffect, useState} from 'react'
+import { StyleSheet, View } from 'react-native'
+import { FlashList } from '@shopify/flash-list'
+import { height, width } from '../../../common/utils/dimensions'
+import { useEffect, useState } from 'react'
 import deviceStore from '../../../common/store/deviceStore'
 import summaryStore, {
    DeviveItemSummaryType,
 } from '../../../common/store/summaryStore'
-import {DeviceItem} from './DeviceItem'
-import {ModalRemove} from '../../../components/Overlay/ModalRemove'
+import { DeviceItem } from './DeviceItem'
+import { ModalRemove } from '../../../components/Overlay/ModalRemove'
 
 const DeviceList = () => {
-   const {container} = styles
-   const {getDeviceImageById, selectDeviceById} = deviceStore
-   const {summaryList, removeSummaryItem, updateOrderQuantity, getTotal} =
+   const { container } = styles
+   const { getDeviceImageById, selectDeviceById } = deviceStore
+   const { summaryList, removeSummaryItem, updateOrderQuantity, getTotal } =
       summaryStore
    const [removeId, setRemoveId] = useState('')
 
@@ -23,7 +23,7 @@ const DeviceList = () => {
    }, [])
 
    useEffect(() => {
-      console.log(`Hoang: DeviceList in Summary render `)
+      console.log('Hoang: DeviceList in Summary render ')
    })
 
    const _onRemove = () => {
@@ -33,7 +33,7 @@ const DeviceList = () => {
       getTotal()
    }
 
-   const renderList = ({item}: {item: DeviveItemSummaryType}) => {
+   const renderList = ({ item }: { item: DeviveItemSummaryType }) => {
       const img = getDeviceImageById(item.id)
       return (
          <DeviceItem
@@ -57,7 +57,7 @@ const DeviceList = () => {
             renderItem={renderList}
             data={summaryList}
             removeClippedSubviews
-            keyExtractor={({id}: DeviveItemSummaryType) => id.toString()}
+            keyExtractor={({ id }: DeviveItemSummaryType) => id.toString()}
             estimatedItemSize={height * 0.1}
             showsVerticalScrollIndicator={false}
          />

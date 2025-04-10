@@ -1,5 +1,5 @@
-import {object, string, date} from 'yup'
-import {phoneRegExp, requiredText} from '../../../contants/Validation'
+import { object, string, date } from 'yup'
+import { phoneRegExp, requiredText } from '../../../contants/Validation'
 
 export const customerSchema = object({
    name: string().required(requiredText),

@@ -1,5 +1,5 @@
-import {object, string, number, bool, array} from 'yup'
-import {requiredText} from '../../../contants/Validation'
+import { object, string, number, bool, array } from 'yup'
+import { requiredText } from '../../../contants/Validation'
 
 export const editDeviceSchema = object({
    name: string().required(requiredText),
@@ -11,5 +11,5 @@ export const editDeviceSchema = object({
    status: bool().required(requiredText),
    note: string().required(requiredText),
    fee: number().required(requiredText).typeError('Fee must be a number'),
-   image: array().optional()
+   image: array().optional(),
 }).required()

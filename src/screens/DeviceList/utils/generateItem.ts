@@ -1,5 +1,5 @@
-import {DeviceItemType} from './type'
-import {faker} from '@faker-js/faker'
+import { DeviceItemType } from './type'
+import { faker } from '@faker-js/faker'
 
 const generateDeviceItem = (): DeviceItemType => ({
    id: faker.string.uuid(),
@@ -8,10 +8,10 @@ const generateDeviceItem = (): DeviceItemType => ({
    quantity: Math.floor(Math.random() * 10) + 1,
    status: faker.datatype.boolean(),
    note: faker.lorem.sentence(),
-   fee: parseFloat(faker.commerce.price({min: 10, max: 500})),
+   fee: parseFloat(faker.commerce.price({ min: 10, max: 500 })),
    selected: false,
 })
 
 export const generateDeviceItems = (limit: number = 1000): DeviceItemType[] => {
-   return Array.from({length: limit}, () => generateDeviceItem())
+   return Array.from({ length: limit }, () => generateDeviceItem())
 }

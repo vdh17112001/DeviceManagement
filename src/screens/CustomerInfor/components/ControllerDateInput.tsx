@@ -1,10 +1,9 @@
-// DateInput.tsx
-import React, {useState} from 'react'
-import {Controller} from 'react-hook-form'
-import {View, Text, Pressable, StyleSheet} from 'react-native'
+import React, { useState } from 'react'
+import { Controller } from 'react-hook-form'
+import { View, Text, Pressable, StyleSheet } from 'react-native'
 import DatePicker from 'react-native-date-picker'
-import {errText, inputStyle} from '../../../contants/FormInputStyles'
-import {height} from '../../../common/utils/dimensions'
+import { errText, inputStyle } from '../../../contants/FormInputStyles'
+import { height } from '../../../common/utils/dimensions'
 
 type DateInputProps = {
    control: any
@@ -17,38 +16,42 @@ export const ControllerDateInput: React.FC<DateInputProps> = ({
    name,
    placeholder = 'Select date',
 }) => {
-   const {container, input, errorText} = styles
+   const { container, input, errorText } = styles
 
    const [open, setOpen] = useState(false)
+
    return (
       <Controller
          control={control}
          name={name}
-         render={({field: {onChange, value}, fieldState: {error}}) => (
-            <View style={container}>
-               <Pressable onPress={() => setOpen(true)} style={input}>
-                  <Text style={{color: value ? '#000' : '#999'}}>
-                     {value
-                        ? new Date(value).toLocaleDateString()
-                        : placeholder}
-                  </Text>
-               </Pressable>
+         render={({ field: { onChange, value }, fieldState: { error } }) => {
+            const color = { color: value ? '#000' : '#999' }
+            return (
+               <View style={container}>
+                  <Pressable onPress={() => setOpen(true)} style={input}>
+                     <Text style={color}>
+                        {value
+                           ? new Date(value).toLocaleDateString()
+                           : placeholder}
+                     </Text>
+                  </Pressable>
 
-               <DatePicker
-                  modal
-                  open={open}
-                  date={value ? new Date(value) : new Date()}
-                  mode="date"
-                  onConfirm={date => {
-                     setOpen(false)
-                     onChange(date)
-                  }}
-                  onCancel={() => setOpen(false)}
-               />
+                  <DatePicker
+                     modal
+                     open={open}
+                     date={value ? new Date(value) : new Date()}
+                     mode="date"
+                     onConfirm={date => {
+                        setOpen(false)
+                        onChange(date)
+                     }}
+                     onCancel={() => setOpen(false)}
+                  />
 
-               {error && <Text style={errorText}>{error.message}</Text>}
-            </View>
-         )}
+                  {error && <Text style={errorText}>{error.message}</Text>}
+               </View>
+            )
+         }}
       />
    )
 }
@@ -62,5 +65,5 @@ const styles = StyleSheet.create({
       justifyContent: 'center',
       height: height * 0.05,
    },
-   errorText: {...errText, paddingLeft: 0, marginTop: 10},
+   errorText: { ...errText, paddingLeft: 0, marginTop: 10 },
 })

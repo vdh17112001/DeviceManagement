@@ -1,10 +1,10 @@
-import React, {useCallback, useEffect} from 'react'
-import {StyleSheet, Text, TouchableOpacity, View} from 'react-native'
-import {DeviceItemType} from '../utils/type'
-import {height, width} from '../../../common/utils/dimensions'
-import {useNavigate} from '../../../common/hooks/useNavigate'
+import React, { useCallback, useEffect } from 'react'
+import { StyleSheet, Text, TouchableOpacity, View } from 'react-native'
+import { DeviceItemType } from '../utils/type'
+import { height, width } from '../../../common/utils/dimensions'
+import { useNavigate } from '../../../common/hooks/useNavigate'
 import FastImage from '@d11/react-native-fast-image'
-import {noneImage} from '../../../asset'
+import { noneImage } from '../../../asset'
 
 type DeviceItemProps = {
    item: DeviceItemType
@@ -19,7 +19,7 @@ export const DeviceItem = ({
    onDelete,
    img,
 }: DeviceItemProps) => {
-   const {name, quantity, fee, selected} = item
+   const { name, quantity, fee, selected } = item
    const {
       container,
       text,
@@ -61,7 +61,7 @@ export const DeviceItem = ({
                style={image}
                source={
                   img
-                     ? {uri: img, priority: FastImage.priority.normal}
+                     ? { uri: img, priority: FastImage.priority.normal }
                      : noneImage
                }
                resizeMode={FastImage.resizeMode.center}
@@ -117,7 +117,7 @@ const styles = StyleSheet.create({
       padding: 8,
       paddingRight: 16,
    },
-   label: {fontWeight: 'bold'},
+   label: { fontWeight: 'bold' },
    subView: {
       flexDirection: 'row',
       justifyContent: 'space-between',

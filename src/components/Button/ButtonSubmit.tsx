@@ -4,7 +4,7 @@ import {
    TouchableOpacity,
    TouchableOpacityProps,
 } from 'react-native'
-import {height, width} from '../../common/utils/dimensions'
+import { height, width } from '../../common/utils/dimensions'
 
 interface ButtonSubmitProps extends TouchableOpacityProps {
    customStyle?: TouchableOpacityProps['style']
@@ -12,12 +12,12 @@ interface ButtonSubmitProps extends TouchableOpacityProps {
 }
 
 export const ButtonSubmit = (props: ButtonSubmitProps) => {
-   const {buttonSubmit, titleButton} = styles
-   const {customStyle, label} = props
+   const { buttonSubmit, titleButton } = styles
+   const { customStyle, label } = props
    return (
       <TouchableOpacity
          {...props}
-         style={!!customStyle ? customStyle : buttonSubmit}>
+         style={customStyle ? customStyle : buttonSubmit}>
          <Text style={titleButton}>{label}</Text>
       </TouchableOpacity>
    )

@@ -1,6 +1,6 @@
-import {StyleSheet, Text, TouchableOpacity, View} from 'react-native'
-import {height} from '../../../common/utils/dimensions'
-import {useState} from 'react'
+import { StyleSheet, Text, TouchableOpacity, View } from 'react-native'
+import { height } from '../../../common/utils/dimensions'
+import { useState } from 'react'
 
 interface QuantityActionProps {
    onUpdate: (value: number) => void
@@ -12,7 +12,7 @@ export const QuantityAction = ({
 
    quantity,
 }: QuantityActionProps) => {
-   const {container, actionButton, text, disabledStyle} = styles
+   const { container, actionButton, text, disabledStyle } = styles
 
    const [value, setValue] = useState(1)
    const inCreateaseDisabled = value === quantity

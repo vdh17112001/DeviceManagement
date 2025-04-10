@@ -1,5 +1,5 @@
-import {makeAutoObservable} from 'mobx'
-import {DeviceItemType} from '../../screens/DeviceList/utils/type'
+import { makeAutoObservable } from 'mobx'
+import { DeviceItemType } from '../../screens/DeviceList/utils/type'
 
 export type DeviveItemSummaryType = DeviceItemType & {
    orderQuantity: number
@@ -51,7 +51,7 @@ class SummaryStore {
    clearSummary = () => {
       this.summaryList = []
       this.total = 0
-      console.log(`Hoang: clear `)
+      console.log('Hoang: clear ')
    }
 
    getQuantityList = () => {

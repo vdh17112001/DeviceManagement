@@ -1,8 +1,8 @@
-import {StyleSheet, Text, TouchableOpacity, View} from 'react-native'
-import {useNavigate} from '../../common/hooks/useNavigate'
-import {height, width} from '../../common/utils/dimensions'
-import {MainStackParamList} from '../../navigation/MainStack'
-import {StackName} from '../../contants/StackName'
+import { StyleSheet, Text, TouchableOpacity, View } from 'react-native'
+import { useNavigate } from '../../common/hooks/useNavigate'
+import { height, width } from '../../common/utils/dimensions'
+import { MainStackParamList } from '../../navigation/MainStack'
+import { StackName } from '../../contants/StackName'
 
 export const Toolbar = ({
    routeName,
@@ -13,7 +13,7 @@ export const Toolbar = ({
    disableBack?: boolean
    disableNext?: boolean
 }) => {
-   const {container, text, disabledStyle} = styles
+   const { container, text, disabledStyle } = styles
    const navigation = useNavigate()
 
    const goBack = () => {

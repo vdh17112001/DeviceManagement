@@ -1,18 +1,18 @@
 import FastImage from '@d11/react-native-fast-image'
-import {StyleSheet, TouchableOpacity, View} from 'react-native'
-import {height, width} from '../../../common/utils/dimensions'
+import { StyleSheet, TouchableOpacity } from 'react-native'
+import { height, width } from '../../../common/utils/dimensions'
 
 interface Props {
    uri: string
    onPress: () => void
 }
 
-export const ImageItem = ({uri, onPress}: Props) => {
+export const ImageItem = ({ uri, onPress }: Props) => {
    if (!uri) {
       return null
    }
 
-   const {container, size} = styles
+   const { container, size } = styles
 
    return (
       <TouchableOpacity onPress={onPress} style={[container, size]}>

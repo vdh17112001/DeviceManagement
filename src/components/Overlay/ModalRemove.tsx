@@ -1,6 +1,5 @@
-import {useEffect, useState} from 'react'
-import {Button, Modal, StyleSheet, Text, View} from 'react-native'
-import {height, width} from '../../common/utils/dimensions'
+import { Button, Modal, StyleSheet, Text, View } from 'react-native'
+import { height, width } from '../../common/utils/dimensions'
 
 interface Props {
    onRemove: () => void
@@ -8,8 +7,8 @@ interface Props {
    content: string
 }
 
-export const ModalRemove = ({onRemove, onClose, content}: Props) => {
-   const {container, modalView, actionView, text} = styles
+export const ModalRemove = ({ onRemove, onClose, content }: Props) => {
+   const { container, modalView, actionView, text } = styles
    return (
       <Modal
          animationType="fade"
@@ -30,7 +29,7 @@ export const ModalRemove = ({onRemove, onClose, content}: Props) => {
 }
 
 const styles = StyleSheet.create({
-   container: {flex: 1, justifyContent: 'center', alignItems: 'center'},
+   container: { flex: 1, justifyContent: 'center', alignItems: 'center' },
    modalView: {
       width: width * 0.8,
       height: height * 0.2,

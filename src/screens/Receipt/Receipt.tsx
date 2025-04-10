@@ -1,27 +1,26 @@
-import {StyleSheet, View, Text} from 'react-native'
+import { StyleSheet, View, Text } from 'react-native'
 import customerStore from '../../common/store/customerInforStore'
 import summaryStore from '../../common/store/summaryStore'
 import deviceStore from '../../common/store/deviceStore'
-import {useEffect} from 'react'
-import {Toolbar} from '../../components/Header/Toolbar'
-import {ButtonSubmit} from '../../components/Button/ButtonSubmit'
-import {useNavigate} from '../../common/hooks/useNavigate'
+import { useEffect } from 'react'
+import { ButtonSubmit } from '../../components/Button/ButtonSubmit'
+import { useNavigate } from '../../common/hooks/useNavigate'
 
 const Receipt = () => {
-   const {container, text, title, nameText, totalText, subView} = styles
-   const {name} = customerStore.customerInfor
-   const {total, clearSummary, getQuantityList} = summaryStore
-   const {updateDeviceAfterSubmit} = deviceStore
+   const { container, text, title, nameText, totalText, subView } = styles
+   const { name } = customerStore.customerInfor
+   const { total, clearSummary, getQuantityList } = summaryStore
+   const { updateDeviceAfterSubmit } = deviceStore
    const navigation = useNavigate()
 
    useEffect(() => {
-      console.log(`Hoang: Receipt render`)
+      console.log('Hoang: Receipt render')
    })
 
    useEffect(() => {
       const quantityList = getQuantityList()
       updateDeviceAfterSubmit(quantityList)
-      return () => clearSummary()
+      clearSummary()
    }, [])
 
    return (
@@ -50,8 +49,8 @@ const styles = StyleSheet.create({
       alignItems: 'center',
       justifyContent: 'space-evenly',
    },
-   text: {fontSize: 20},
-   title: {fontSize: 30, fontWeight: 'bold'},
+   text: { fontSize: 20 },
+   title: { fontSize: 30, fontWeight: 'bold' },
    nameText: {
       color: 'green',
       fontWeight: '500',

@@ -1,3 +1,3 @@
-import {ImageLibraryOptions} from 'react-native-image-picker'
+import { ImageLibraryOptions } from 'react-native-image-picker'
 
-export const uploadImageOptions: ImageLibraryOptions = {mediaType: 'photo'}
+export const uploadImageOptions: ImageLibraryOptions = { mediaType: 'photo' }

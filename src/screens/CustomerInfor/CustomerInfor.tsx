@@ -1,22 +1,22 @@
-import React, {useEffect} from 'react'
-import {View, TouchableOpacity, Text, StyleSheet} from 'react-native'
-import {useForm} from 'react-hook-form'
-import {FormCustomerData} from './utils/type'
-import {yupResolver} from '@hookform/resolvers/yup'
-import {customerSchema} from './utils/validation'
-import {ControllerDateInput} from './components/ControllerDateInput'
-import {ControllerInput} from '../../components/InputForm/ControllerInput'
+import React, { useEffect } from 'react'
+import { View, StyleSheet } from 'react-native'
+import { useForm } from 'react-hook-form'
+import { FormCustomerData } from './utils/type'
+import { yupResolver } from '@hookform/resolvers/yup'
+import { customerSchema } from './utils/validation'
+import { ControllerDateInput } from './components/ControllerDateInput'
+import { ControllerInput } from '../../components/InputForm/ControllerInput'
 import customerStore from '../../common/store/customerInforStore'
-import {useNavigate} from '../../common/hooks/useNavigate'
-import {showToast} from '../../common/utils/toast'
-import {ButtonSubmit} from '../../components/Button/ButtonSubmit'
+import { useNavigate } from '../../common/hooks/useNavigate'
+import { showToast } from '../../common/utils/toast'
+import { ButtonSubmit } from '../../components/Button/ButtonSubmit'
 
 const CustomerInfor = () => {
    const navigation = useNavigate()
-   const {container} = styles
-   const {setCustomerInforForm, customerInfor} = customerStore
+   const { container } = styles
+   const { setCustomerInforForm, customerInfor } = customerStore
 
-   const {control, handleSubmit} = useForm({
+   const { control, handleSubmit } = useForm({
       defaultValues: customerInfor as any,
       resolver: yupResolver(customerSchema),
    })
@@ -32,7 +32,7 @@ const CustomerInfor = () => {
    }
 
    useEffect(() => {
-      console.log(`Hoang: CustomerInfor render`)
+      console.log('Hoang: CustomerInfor render')
    })
 
    return (
@@ -52,8 +52,7 @@ const CustomerInfor = () => {
          />
          <ControllerDateInput name="birth" control={control} />
 
-         <ButtonSubmit label="Submit" onPress={() => _navigate()} />
-         {/* <ButtonSubmit label="Submit" onPress={handleSubmit(_onSubmit)} /> */}
+         <ButtonSubmit label="Submit" onPress={handleSubmit(_onSubmit)} />
       </View>
    )
 }

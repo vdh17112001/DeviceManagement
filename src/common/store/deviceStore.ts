@@ -1,7 +1,7 @@
-import {makeAutoObservable} from 'mobx'
-import {DeviceItemType} from '../../screens/DeviceList/utils/type'
-import {Asset} from 'react-native-image-picker'
-import {QuantityListType} from './summaryStore'
+import { makeAutoObservable } from 'mobx'
+import { DeviceItemType } from '../../screens/DeviceList/utils/type'
+import { Asset } from 'react-native-image-picker'
+import { QuantityListType } from './summaryStore'
 
 export type ImageList = {
    id: string

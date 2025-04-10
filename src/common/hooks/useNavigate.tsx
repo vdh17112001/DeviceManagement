@@ -1,5 +1,5 @@
-import {NavigationProp, useNavigation} from '@react-navigation/native'
-import {MainStackParamList} from '../../navigation/MainStack'
+import { NavigationProp, useNavigation } from '@react-navigation/native'
+import { MainStackParamList } from '../../navigation/MainStack'
 
 type StackList = MainStackParamList
 

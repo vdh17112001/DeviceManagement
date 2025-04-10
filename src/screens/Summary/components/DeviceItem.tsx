@@ -1,11 +1,10 @@
-import React, {memo} from 'react'
-import {StyleSheet, Text, TouchableOpacity, View} from 'react-native'
-import {height, width} from '../../../common/utils/dimensions'
-import {DeviceItemType} from '../../DeviceList/utils/type'
+import React, { memo } from 'react'
+import { StyleSheet, Text, View } from 'react-native'
+import { height, width } from '../../../common/utils/dimensions'
 import FastImage from '@d11/react-native-fast-image'
-import {noneImage} from '../../../asset'
-import {QuantityAction} from './QuanityAction'
-import {DeviveItemSummaryType} from '../../../common/store/summaryStore'
+import { noneImage } from '../../../asset'
+import { QuantityAction } from './QuanityAction'
+import { DeviveItemSummaryType } from '../../../common/store/summaryStore'
 
 type DeviceItemProps = {
    item: DeviveItemSummaryType
@@ -13,9 +12,10 @@ type DeviceItemProps = {
    onUpdate?: (value: number) => void
 }
 
-export const DeviceItem = memo(({item, img, onUpdate}: DeviceItemProps) => {
-   const {name, quantity, fee} = item
-   const {container, text, subView, label, nameStyle, imageView, image} = styles
+export const DeviceItem = memo(({ item, img, onUpdate }: DeviceItemProps) => {
+   const { name, quantity, fee } = item
+   const { container, text, subView, label, nameStyle, imageView, image } =
+      styles
 
    return (
       <View style={container}>
@@ -24,7 +24,7 @@ export const DeviceItem = memo(({item, img, onUpdate}: DeviceItemProps) => {
                style={image}
                source={
                   img
-                     ? {uri: img, priority: FastImage.priority.normal}
+                     ? { uri: img, priority: FastImage.priority.normal }
                      : noneImage
                }
                resizeMode={FastImage.resizeMode.center}
@@ -67,7 +67,7 @@ const styles = StyleSheet.create({
       padding: 8,
       fontWeight: 'bold',
    },
-   label: {fontWeight: 'bold'},
+   label: { fontWeight: 'bold' },
    subView: {
       width: '55%',
       height: '100%',

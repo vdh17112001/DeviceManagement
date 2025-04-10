@@ -1,5 +1,4 @@
-import {MainStackParamList} from '../navigation/MainStack'
-import Receipt from '../screens/Receipt/Receipt'
+import { MainStackParamList } from '../navigation/MainStack'
 
 export const StackName: Record<keyof MainStackParamList, string> = {
    CustomerInfor: 'Customer Infor',

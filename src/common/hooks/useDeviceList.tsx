@@ -1,6 +1,6 @@
-import {useEffect, useState} from 'react'
+import { useEffect, useState } from 'react'
 import deviceStore from '../store/deviceStore'
-import {generateDeviceItems} from '../../screens/DeviceList/utils/generateItem'
+import { generateDeviceItems } from '../../screens/DeviceList/utils/generateItem'
 
 export const useDeviceList = () => {
    const [loadMore, setLoadMore] = useState(false)
@@ -21,7 +21,6 @@ export const useDeviceList = () => {
 
    useEffect(() => {
       if (deviceList.length > 0) {
-         setDeviceItem([], filter)
          return
       }
       setTimeout(() => genData(), 200) // gen 1000 item by default
@@ -30,9 +29,8 @@ export const useDeviceList = () => {
    useEffect(() => {
       if (deviceList.length > 10 && loadMore) {
          genData(100) // gen 100 item
-         setLoadMore(false)
       }
-      console.log(`Hoang: loadMore ${loadMore}`)
+      setLoadMore(false)
    }, [loadMore])
 
    return {
