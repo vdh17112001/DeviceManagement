@@ -1,4 +1,4 @@
-import { object, string, number, bool, array } from 'yup'
+import { array, bool, number, object, string } from 'yup'
 import { requiredText } from '../../../contants/Validation'
 
 export const editDeviceSchema = object({

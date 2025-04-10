@@ -1,5 +1,5 @@
 import React, { useEffect } from 'react'
-import { View, StyleSheet } from 'react-native'
+import { StyleSheet, View } from 'react-native'
 import { useForm } from 'react-hook-form'
 import { FormCustomerData } from './utils/type'
 import { yupResolver } from '@hookform/resolvers/yup'

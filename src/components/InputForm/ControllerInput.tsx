@@ -1,6 +1,6 @@
 import React, { useEffect } from 'react'
 import { Controller } from 'react-hook-form'
-import { TextInput, Text, TextInputProps, StyleSheet } from 'react-native'
+import { StyleSheet, Text, TextInput, TextInputProps } from 'react-native'
 import { errText, inputStyle } from '../../contants/FormInputStyles'
 
 type ControllerInputProps = {

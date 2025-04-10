@@ -1,4 +1,4 @@
-import { StyleSheet, View, Text } from 'react-native'
+import { StyleSheet, Text, View } from 'react-native'
 import customerStore from '../../common/store/customerInforStore'
 import summaryStore from '../../common/store/summaryStore'
 import deviceStore from '../../common/store/deviceStore'

@@ -1,6 +1,6 @@
 import React, { useState } from 'react'
 import { Controller } from 'react-hook-form'
-import { View, Text, Pressable, StyleSheet } from 'react-native'
+import { Pressable, StyleSheet, Text, View } from 'react-native'
 import DatePicker from 'react-native-date-picker'
 import { errText, inputStyle } from '../../../contants/FormInputStyles'
 import { height } from '../../../common/utils/dimensions'
