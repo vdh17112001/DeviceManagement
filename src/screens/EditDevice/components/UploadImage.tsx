@@ -70,6 +70,11 @@ export const UploadImage = observer(
          [data],
       )
 
+      const _onRemove = () => {
+         onRemove(removeImgId)
+         setRemoveImgId('')
+      }
+
       return (
          <View style={container}>
             <FlatList
@@ -81,10 +86,7 @@ export const UploadImage = observer(
             {!!removeImgId && (
                <ModalRemove
                   content="Are you sure you want to remove this image ?"
-                  onRemove={() => {
-                     onRemove(removeImgId)
-                     setRemoveImgId('')
-                  }}
+                  onRemove={_onRemove}
                   onClose={() => setRemoveImgId('')}
                />
             )}

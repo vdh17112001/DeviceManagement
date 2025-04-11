@@ -29,20 +29,23 @@ const DeviceList = () => {
       getTotal()
    }
 
+   const _onUpdate = (value: number, id: string) => {
+      if (!value) {
+         setRemoveId(id)
+         return
+      }
+      updateOrderQuantity(id, value)
+      getTotal()
+   }
+
    const renderList = ({ item }: { item: DeviceItemSummaryType }) => {
-      const img = getDeviceImageById(item.id)
+      const { id } = item
+      const img = getDeviceImageById(id)
       return (
          <DeviceItem
             item={item}
             img={img || ''}
-            onUpdate={value => {
-               if (!value) {
-                  setRemoveId(item.id)
-                  return
-               }
-               updateOrderQuantity(item.id, value)
-               getTotal()
-            }}
+            onUpdate={value => _onUpdate(value, id)}
          />
       )
    }

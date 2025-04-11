@@ -20,6 +20,11 @@ export const ControllerDateInput = ({
 
    const [open, setOpen] = useState(false)
 
+   const _onConfirm = (date: Date, onChange: (...e: any[]) => void) => {
+      setOpen(false)
+      onChange(date)
+   }
+
    return (
       <Controller
          control={control}
@@ -41,10 +46,7 @@ export const ControllerDateInput = ({
                      open={open}
                      date={value ? new Date(value) : new Date()}
                      mode="date"
-                     onConfirm={date => {
-                        setOpen(false)
-                        onChange(date)
-                     }}
+                     onConfirm={date => _onConfirm(date, onChange)}
                      onCancel={() => setOpen(false)}
                   />
 

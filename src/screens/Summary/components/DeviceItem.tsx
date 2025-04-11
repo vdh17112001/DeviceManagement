@@ -3,13 +3,13 @@ import { StyleSheet, Text, View } from 'react-native'
 import { height, width } from '../../../common/utils/dimensions'
 import FastImage from '@d11/react-native-fast-image'
 import { noneImage } from '../../../asset'
-import { QuantityAction } from './QuanityAction'
+import { QuantityAction } from './QuantityAction'
 import { DeviceItemSummaryType } from '../../../common/store/summaryStore'
 
 type DeviceItemProps = {
    item: DeviceItemSummaryType
    img: string
-   onUpdate?: (value: number) => void
+   onUpdate: (value: number) => void
 }
 
 export const DeviceItem = memo(({ item, img, onUpdate }: DeviceItemProps) => {
@@ -38,9 +38,7 @@ export const DeviceItem = memo(({ item, img, onUpdate }: DeviceItemProps) => {
          </View>
          <QuantityAction
             quantity={quantity}
-            onUpdate={value => {
-               onUpdate?.(value)
-            }}
+            onUpdate={onUpdate}
          />
       </View>
    )
