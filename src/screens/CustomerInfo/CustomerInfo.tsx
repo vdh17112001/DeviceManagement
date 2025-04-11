@@ -1,4 +1,4 @@
-import React, { useEffect } from 'react'
+import React from 'react'
 import { StyleSheet, View } from 'react-native'
 import { useForm } from 'react-hook-form'
 import { FormCustomerData } from './utils/type'
@@ -28,7 +28,6 @@ const CustomerInfo = () => {
    }
 
    const _navigate = () => navigation.navigate('DeviceList')
-
 
    return (
       <View style={container}>

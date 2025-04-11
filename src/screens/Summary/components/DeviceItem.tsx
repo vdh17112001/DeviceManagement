@@ -36,10 +36,7 @@ export const DeviceItem = memo(({ item, img, onUpdate }: DeviceItemProps) => {
                <Text style={[label, text]}>Fee:</Text> {fee}
             </Text>
          </View>
-         <QuantityAction
-            quantity={quantity}
-            onUpdate={onUpdate}
-         />
+         <QuantityAction quantity={quantity} onUpdate={onUpdate} />
       </View>
    )
 })

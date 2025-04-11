@@ -3,7 +3,6 @@ import { DisplayCustomer } from './components/DisplayCustomer'
 import { Toolbar } from '../../components/Header/Toolbar'
 import DeviceList from './components/DeviceList'
 import { TotalView } from './components/TotalView'
-import { useEffect } from 'react'
 
 const Summary = () => {
    const { container } = styles

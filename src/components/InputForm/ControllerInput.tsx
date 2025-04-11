@@ -1,4 +1,4 @@
-import React, { useEffect } from 'react'
+import React from 'react'
 import { Controller } from 'react-hook-form'
 import { StyleSheet, Text, TextInput, TextInputProps } from 'react-native'
 import { errText, inputStyle } from '../../constants/FormInputStyles'

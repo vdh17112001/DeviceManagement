@@ -13,7 +13,6 @@ import { Checkbox } from '../../components/Checkbox/Checkbox'
 import { errText } from '../../constants/FormInputStyles'
 import deviceStore, { ImageList } from '../../common/store/deviceStore'
 import { UploadImage } from './components/UploadImage'
-import { useEffect } from 'react'
 import { ButtonSubmit } from '../../components/Button/ButtonSubmit'
 
 type Props = NativeStackScreenProps<MainStackParamList, 'EditDevice'>

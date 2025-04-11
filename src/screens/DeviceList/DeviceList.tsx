@@ -1,5 +1,5 @@
 import { observer } from 'mobx-react'
-import { useCallback, useEffect, useMemo } from 'react'
+import { useCallback, useMemo } from 'react'
 import { StyleSheet, Text, View } from 'react-native'
 import { SearchInput } from './components/Search'
 import { DeviceItem } from './components/Item'
