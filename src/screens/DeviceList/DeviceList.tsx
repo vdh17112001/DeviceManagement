@@ -1,14 +1,16 @@
-import { observer } from 'mobx-react'
 import { useCallback, useMemo } from 'react'
 import { StyleSheet, Text, View } from 'react-native'
-import { SearchInput } from './components/Search'
-import { DeviceItem } from './components/Item'
-import { DeviceItemType } from './utils/type'
+
 import { FlashList } from '@shopify/flash-list'
+import { observer } from 'mobx-react'
+
+import { useDeviceList } from '../../common/hooks/useDeviceList'
+import summaryStore from '../../common/store/summaryStore'
 import { height, width } from '../../common/utils/dimensions'
 import { Toolbar } from '../../components/Header/Toolbar'
-import summaryStore from '../../common/store/summaryStore'
-import { useDeviceList } from '../../common/hooks/useDeviceList'
+import { DeviceItem } from './components/Item'
+import { SearchInput } from './components/Search'
+import { DeviceItemType } from './utils/type'
 
 const DeviceList = () => {
    const { container, amount, subView } = styles

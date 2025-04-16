@@ -1,4 +1,5 @@
 import { Button, Modal, StyleSheet, Text, View } from 'react-native'
+
 import { height, width } from '../../common/utils/dimensions'
 
 interface Props {

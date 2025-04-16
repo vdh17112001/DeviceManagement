@@ -1,19 +1,21 @@
 import { StyleSheet, Text, View } from 'react-native'
-import { height, width } from '../../common/utils/dimensions'
-import { Controller, useForm } from 'react-hook-form'
-import { showToast } from '../../common/utils/toast'
-import { ControllerInput } from '../../components/InputForm/ControllerInput'
+
 import { yupResolver } from '@hookform/resolvers/yup'
-import { Toolbar } from '../../components/Header/Toolbar'
 import { NativeStackScreenProps } from '@react-navigation/native-stack'
+import { Controller, useForm } from 'react-hook-form'
+
+import deviceStore, { ImageList } from '../../common/store/deviceStore'
+import { height, width } from '../../common/utils/dimensions'
+import { showToast } from '../../common/utils/toast'
+import { ButtonSubmit } from '../../components/Button/ButtonSubmit'
+import { Checkbox } from '../../components/Checkbox/Checkbox'
+import { Toolbar } from '../../components/Header/Toolbar'
+import { ControllerInput } from '../../components/InputForm/ControllerInput'
+import { errText } from '../../constants/FormInputStyles'
 import { MainStackParamList } from '../../navigation/MainStack'
 import { DeviceItemType } from '../DeviceList/utils/type'
-import { editDeviceSchema } from './utils/validation'
-import { Checkbox } from '../../components/Checkbox/Checkbox'
-import { errText } from '../../constants/FormInputStyles'
-import deviceStore, { ImageList } from '../../common/store/deviceStore'
 import { UploadImage } from './components/UploadImage'
-import { ButtonSubmit } from '../../components/Button/ButtonSubmit'
+import { editDeviceSchema } from './utils/validation'
 
 type Props = NativeStackScreenProps<MainStackParamList, 'EditDevice'>
 

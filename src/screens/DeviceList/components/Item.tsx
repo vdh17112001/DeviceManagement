@@ -1,10 +1,12 @@
 import React from 'react'
 import { StyleSheet, Text, TouchableOpacity, View } from 'react-native'
-import { DeviceItemType } from '../utils/type'
-import { height, width } from '../../../common/utils/dimensions'
-import { useNavigate } from '../../../common/hooks/useNavigate'
+
 import FastImage from '@d11/react-native-fast-image'
+
 import { noneImage } from '../../../asset'
+import { useNavigate } from '../../../common/hooks/useNavigate'
+import { height, width } from '../../../common/utils/dimensions'
+import { DeviceItemType } from '../utils/type'
 
 interface DeviceItemProps {
    item: DeviceItemType

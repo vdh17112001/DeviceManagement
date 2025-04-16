@@ -1,9 +1,12 @@
 import React, { useState } from 'react'
-import { Controller } from 'react-hook-form'
 import { Pressable, StyleSheet, Text, View } from 'react-native'
+
 import DatePicker from 'react-native-date-picker'
-import { errText, inputStyle } from '../../../constants/FormInputStyles'
+
+import { Controller } from 'react-hook-form'
+
 import { height } from '../../../common/utils/dimensions'
+import { errText, inputStyle } from '../../../constants/FormInputStyles'
 
 interface DateInputProps {
    control: any

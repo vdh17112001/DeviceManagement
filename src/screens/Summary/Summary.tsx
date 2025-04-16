@@ -1,7 +1,8 @@
 import { StyleSheet, View } from 'react-native'
-import { DisplayCustomer } from './components/DisplayCustomer'
+
 import { Toolbar } from '../../components/Header/Toolbar'
 import DeviceList from './components/DeviceList'
+import { DisplayCustomer } from './components/DisplayCustomer'
 import { TotalView } from './components/TotalView'
 
 const Summary = () => {

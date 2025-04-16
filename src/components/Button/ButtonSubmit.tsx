@@ -4,6 +4,7 @@ import {
    TouchableOpacity,
    TouchableOpacityProps,
 } from 'react-native'
+
 import { height, width } from '../../common/utils/dimensions'
 
 interface ButtonSubmitProps extends TouchableOpacityProps {

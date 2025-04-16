@@ -1,10 +1,11 @@
-import { StyleSheet, Text, View } from 'react-native'
-import summaryStore from '../../common/store/summaryStore'
-import deviceStore from '../../common/store/deviceStore'
 import { useEffect } from 'react'
-import { ButtonSubmit } from '../../components/Button/ButtonSubmit'
+import { StyleSheet, Text, View } from 'react-native'
+
 import { useNavigate } from '../../common/hooks/useNavigate'
 import customerStore from '../../common/store/customerInfoStore'
+import deviceStore from '../../common/store/deviceStore'
+import summaryStore from '../../common/store/summaryStore'
+import { ButtonSubmit } from '../../components/Button/ButtonSubmit'
 
 const Receipt = () => {
    const { container, text, title, nameText, totalText, subView } = styles

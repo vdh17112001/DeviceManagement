@@ -1,5 +1,7 @@
-import FastImage from '@d11/react-native-fast-image'
 import { StyleSheet, TouchableOpacity } from 'react-native'
+
+import FastImage from '@d11/react-native-fast-image'
+
 import { height, width } from '../../../common/utils/dimensions'
 
 interface Props {

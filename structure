@@ -1,0 +1,48 @@
+App structure
+
+├── src
+│   ├── constants
+│   │   ├── Fonts.js
+│   │   ├── Colors.js
+│   │   ├── ...
+│   ├── components
+│   ├── auth
+│   │   ├── components
+│   │   │   ├── LoginForm.js
+│   │   │   ├── SignupForm.js
+│   │   │   ├── ForgotPassworForm.js
+│   │   │   └── index.js
+│   │   ├── controllers
+│   │   │   ├── AuthController.js
+│   │   │   └── index.js
+│   │   ├── models
+│   │   │   └── index.js
+│   │   ├── screens
+│   │   │   ├── LoginScreen.js
+│   │   │   ├── SignupScreen.js
+│   │   │   └── index.js
+│   │   └── index.js
+│   ├── home
+│   ├── navigation
+│   │   ├── AuthNavigator.js
+│   │   ├── HomeNavigator.js
+│   │   ├── SplashScreen.js
+│   │   └── index.js
+│   ├── ...
+│   ├── common
+│   │   │   ├── utils
+│   │   │   ├── redux
+│   │   │   │   ├── actions
+│   │   │   │   ├── sagas
+│   │   │   │   ├── reducers
+│   │   │   │   └── stores
+│   │   │   ├── hooks
+│   │   │   ├── services
+│   │   │   ├── schemas
+│   │   │   ├── vendors
+│   │   │   └── styles
+│   └── index.js
+├── assets
+
+
+Details of structure

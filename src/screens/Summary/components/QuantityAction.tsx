@@ -1,6 +1,7 @@
-import { StyleSheet, Text, TouchableOpacity, View } from 'react-native'
-import { height } from '../../../common/utils/dimensions'
 import { useState } from 'react'
+import { StyleSheet, Text, TouchableOpacity, View } from 'react-native'
+
+import { height } from '../../../common/utils/dimensions'
 
 interface QuantityActionProps {
    onUpdate: (value: number) => void

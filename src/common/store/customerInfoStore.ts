@@ -1,4 +1,5 @@
 import { makeAutoObservable } from 'mobx'
+
 import { FormCustomerData } from '../../screens/CustomerInfo/utils/type'
 
 class CustomerInfoStore {

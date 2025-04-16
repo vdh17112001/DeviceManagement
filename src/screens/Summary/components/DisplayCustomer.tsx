@@ -1,6 +1,7 @@
 import { StyleSheet, Text, View } from 'react-native'
-import { width } from '../../../common/utils/dimensions'
+
 import customerStore from '../../../common/store/customerInfoStore'
+import { width } from '../../../common/utils/dimensions'
 
 export const DisplayCustomer = () => {
    const { container, text, title } = styles

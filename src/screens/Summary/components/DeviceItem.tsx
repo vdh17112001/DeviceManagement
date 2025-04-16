@@ -1,10 +1,12 @@
 import React, { memo } from 'react'
 import { StyleSheet, Text, View } from 'react-native'
-import { height, width } from '../../../common/utils/dimensions'
+
 import FastImage from '@d11/react-native-fast-image'
+
 import { noneImage } from '../../../asset'
-import { QuantityAction } from './QuantityAction'
 import { DeviceItemSummaryType } from '../../../common/store/summaryStore'
+import { height, width } from '../../../common/utils/dimensions'
+import { QuantityAction } from './QuantityAction'
 
 type DeviceItemProps = {
    item: DeviceItemSummaryType

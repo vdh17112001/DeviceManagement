@@ -1,3 +1,4 @@
+import { useCallback, useState } from 'react'
 import {
    FlatList,
    StyleSheet,
@@ -5,15 +6,18 @@ import {
    TouchableOpacity,
    View,
 } from 'react-native'
-import { height, width } from '../../../common/utils/dimensions'
-import { ImageList } from '../../../common/store/deviceStore'
-import { selectImageFromLibrary } from '../utils/uploadImage'
-import { showToast } from '../../../common/utils/toast'
-import { observer } from 'mobx-react'
-import { ImageItem } from './ImageItem'
+
 import { Asset } from 'react-native-image-picker'
-import { useCallback, useState } from 'react'
+
+import { observer } from 'mobx-react'
+
+import { ImageList } from '../../../common/store/deviceStore'
+import { height, width } from '../../../common/utils/dimensions'
+import { showToast } from '../../../common/utils/toast'
 import { ModalRemove } from '../../../components/Overlay/ModalRemove'
+import { selectImageFromLibrary } from '../utils/uploadImage'
+import { ImageItem } from './ImageItem'
+
 interface Props {
    deviceId: string
    data: ImageList[]

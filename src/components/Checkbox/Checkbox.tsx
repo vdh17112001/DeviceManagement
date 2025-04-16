@@ -1,4 +1,5 @@
 import { StyleSheet, TouchableOpacity } from 'react-native'
+
 import { CheckIcon } from '../../asset/svg'
 import { height, width } from '../../common/utils/dimensions'
 

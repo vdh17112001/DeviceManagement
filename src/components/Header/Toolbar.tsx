@@ -1,8 +1,9 @@
 import { StyleSheet, Text, TouchableOpacity, View } from 'react-native'
+
 import { useNavigate } from '../../common/hooks/useNavigate'
 import { height, width } from '../../common/utils/dimensions'
-import { MainStackParamList } from '../../navigation/MainStack'
 import { StackName } from '../../constants/StackName'
+import { MainStackParamList } from '../../navigation/MainStack'
 
 export const Toolbar = ({
    routeName,

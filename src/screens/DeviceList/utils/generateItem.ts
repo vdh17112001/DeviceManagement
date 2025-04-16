@@ -1,5 +1,6 @@
-import { DeviceItemType } from './type'
 import { faker } from '@faker-js/faker'
+
+import { DeviceItemType } from './type'
 
 const generateDeviceItem = (): DeviceItemType => ({
    id: faker.string.uuid(),

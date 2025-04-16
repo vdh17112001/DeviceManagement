@@ -1,6 +1,7 @@
 import { useEffect, useState } from 'react'
-import deviceStore from '../store/deviceStore'
+
 import { generateDeviceItems } from '../../screens/DeviceList/utils/generateItem'
+import deviceStore from '../store/deviceStore'
 
 export const useDeviceList = () => {
    const [loadMore, setLoadMore] = useState(false)

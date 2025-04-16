@@ -1,0 +1,275 @@
+---
+description: 
+globs: 
+alwaysApply: true
+---
+You are an expert in TypeScript, React Native, and Mobile UI development.
+
+You must follow all conventions below
+
+Code rule apply to entire project
+- Apply SOLID, DRY, KISS principle
+- Do not use style inline, each style have one space, define in file style.js, use global styles
+- Define constants for unchanged values
+- Do not define constants outside component
+- Define variable for most use variables
+- Execute functions
+
+    Ex: 
+    Bad:
+        onPress={() => onPress()}
+    Good:
+        onPress={onPress}
+
+- Put all imports above non-import statements
+
+- Use template literal instead
+    Ex:
+    Good:
+        const hello = `Hi, ${name}`
+    Bad:
+        const hello = 'Hi, ' + name;
+
+- Comment above the function if logic complex (the way did it)
+- Apply useReducer() instead of useState()
+- Never reassign parameters
+    Ex:
+    Good:
+        function f1(a) {
+            const b = a || 1;
+        }
+
+    Bad:
+        function f(a) {
+            a = 1;
+        }
+
+- Use destructuring assignment for object, array, params in function
+- Use useRef() combine with forwardRef() and useImperativeHandle() to get/set value, avoid rerendering, assign value immutable if it is a child component and needed
+- Handle cancel request (recommend to use axios)
+- Should give default value for parameters or callback functions
+- Always use boolean value for conditional rendering
+    Ex:
+        const name = 'Bob';
+    Bad:
+        return name && <View>{name}</View>;
+    Good:
+        // convert to boolean
+        return !!name && <View>{name}</View>;
+
+- Use shortcuts for booleans
+	Ex:
+		if (isValid === true) > if (isValid)
+		if (name !== '') > if (!!name)
+		if (arr.length > 0) > if (arr.length)
+		const { firstName, lastName } = user || {}
+
+- Add "_" prefix before function name
+	Ex:	const _onButtonPress = () => {}
+
+- Limit using setTimeout() method, use useRef() to assign and clearTimeout()
+- Use destructuring to get states
+	Ex:
+	Good:
+		const state1 = useSelector(({ state1 }) => state1)
+	Bad:
+		const state1 = useSelector(state => state.state 1)
+
+- Equal separator: 
+    + '==' and '===' operators are comparison operators, used to determine if two values are equal or not.
+
+    + The == operator performs a loose equality comparison that performs type coercion if necessary to make the comparison possible.
+
+    + The === operator, on the other hand, performs a strict equality comparison that does not perform type coercion and requires the operands to have the same type (as well as the same value)
+
+    + Recommendation: using === for faster comparison, force value type if needed
+
+- Object shorthand
+	Ex: 
+    const user = { firstName, lastName };
+
+    Bad:
+        const obj = { user: user };
+
+    Good:
+        const obj = { user };
+
+- Quote property
+		Ex:
+        Good:	
+            const obj = {
+                foo: 1,
+                bar: 2,
+                'data': 3,
+            };
+
+        Bad:
+            const obj = {
+                'foo': 1,
+                'bar': 2,
+                'data': 3,
+            };
+
+- Use the literal syntax for array declaration
+		Ex:
+		Bad:
+            const arr = new Array();
+
+		Good:
+            const arr = [];
+
+- Using spread operator to copy and array/object
+	Ex:
+        const copyOfArr = [...arr]
+        const copyOfObj = {...obj}
+
+- Never mutate parameters
+	Ex:
+	Bad:
+        const foo = (obj) => {
+            obj.key = 1;
+        }
+    Good:
+         const foo = (obj) => {
+            const newObj = {...obj}
+            newObj.key = 1;
+        }
+
+- Never reassign parameters
+		Ex:
+		Bad:
+            const foo = (a) => {
+                a = 1;
+            }
+
+        Good:
+            const foo = (a) => {
+                const b = a || 1;
+            }
+            const foo(a = 1) {}
+
+-  Use arrow function: it creates a version of the function that executes in the context of this, and shorter syntax
+		Ex:
+		Bad:
+            arr.map(function (x) {
+                return ...
+            });
+
+		Good:
+            arr.map((x) => {
+                return...;
+            });
+
+- Use bracket [] when accessing properties with a variable
+		Ex:
+			const value = obj[key]
+
+-  Check value exist before running
+		Ex:
+            if (!obj.key) return;
+
+- Check null/undefined with || operator, give default value. Can combine with nullish operator for shorthand
+		Ex:
+			const { firstName, lastName } = customer?.details || {};
+
+- Prevent duplicate logic, separate to functions for easy management. Can be move utils for reuse in any component
+- Define variable for multiple calls, apply for inside functions, outside function but inside component
+        Ex:
+        Bad:
+            const foo = (user) => {
+                if (!user.firstName) return;
+                return user.firstName[0]
+            }
+
+        Good:
+            const foo = (user = {}) => {
+                const { firstName } = user;
+                if (!firstName) return;
+                return firstName;
+            }
+
+- Avoid variable declaration for single call statements
+- Never call an asynchronous task inside setState(), dispatchState() statements
+- Never using lodash, alternative by define a single function for simple tasks
+- Do not import all class/method inside a module
+		Ex:
+		Good:
+			import method from 'user/method'
+		Bad:
+			import { method } from 'user'
+		Still bad:
+            import User from 'user';
+            ...
+            User.method();
+- Should give default value, empty function callback for props
+- Use let only when need to reassign value, group const and let variables in same block
+- Avoid infinite inline conditional statement, write it into a function
+	Ex:
+	Bad:
+        const isCorrect = con1 ? con2 ? valueIfTrue2 : valueIfFalse2 : valueIfFalse1
+	Good:
+        const isCorrect = () => {
+            if (!con1) return valueIfFalse1;
+            if (con2) return valueIfTrue2;
+            return valueIfFalse2;
+        }
+- Use .includes() for check value exist in array, if it does not same type, use .some() instead
+- Call function one time, avoid duplication inside if…else statement, same with switch…case
+	Ex:
+	Good:
+        let params;
+        if (condition) params = ...
+        else params = ... 
+        if (params) dispatch(params)
+
+	Bad:
+        if (condition) dispatch(params1)
+        else dispatch(params2)
+
+
+Import order
+    React
+    React-Native components
+    Import component/method from a library
+    Import module components, base components
+
+
+    Import assets, icons, translations, stylesActions
+    Import utils and constants
+
+- Divide components based on functionality, limit all code to a single component
+- Separate logic from components
+
+
+Performance Optimization
+
+- Minimize the use of useState and useEffect; prefer context and reducers for state management.
+- Optimize images by using modern formats, including size data, and implementing lazy loading where possible.
+- Implement code splitting and lazy loading for non-critical components with React's Suspense and dynamic imports.
+- Profile and monitor performance using React Native's built-in tools and debugging features.
+- Avoid unnecessary re-renders by memoizing components and using useMemo and useCallback hooks appropriately. Don't abuse it,
+use it only if those functions or components are necessary.
+
+Navigation
+
+- Use react-navigation for routing and navigation; follow its best practices for stack, tab, and drawer navigators.
+- Leverage deep linking and universal links for better user engagement and navigation flow.
+
+Debug
+
+When debugging code, follow these steps:
+- Understand the error: Read the error message carefully and understand what it's telling you.
+- Locate the error: Use the error message to find where the error is occurring.
+- Isolate the problem: Try to narrow down the code that's causing the error.
+- Formulate hypotheses: Come up with possible reasons for the error.
+- Test hypotheses: Make small changes to test each hypothesis.
+- Fix the error: Once you understand the problem, implement a fix.
+- Verify the fix: Make sure your fix works and doesn't introduce new errors.
+- Refactor if necessary: If your fix is a quick patch, consider a more robust solution.
+
+Remember to use appropriate debugging tools like print statements, debuggers, or logging to help you understand the state of your program.
+
+Installing
+
+- If you are going to install a package into your project, check package.json before installing.
+

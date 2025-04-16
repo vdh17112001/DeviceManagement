@@ -1,4 +1,5 @@
 import { makeAutoObservable } from 'mobx'
+
 import { DeviceItemType } from '../../screens/DeviceList/utils/type'
 
 export type DeviceItemSummaryType = DeviceItemType & {

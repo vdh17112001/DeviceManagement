@@ -1,9 +1,11 @@
 import { StyleSheet, Text, View } from 'react-native'
-import { width } from '../../../common/utils/dimensions'
-import summaryStore from '../../../common/store/summaryStore'
+
 import { observer } from 'mobx-react'
-import { ButtonSubmit } from '../../../components/Button/ButtonSubmit'
+
 import { useNavigate } from '../../../common/hooks/useNavigate'
+import summaryStore from '../../../common/store/summaryStore'
+import { width } from '../../../common/utils/dimensions'
+import { ButtonSubmit } from '../../../components/Button/ButtonSubmit'
 
 export const TotalView = observer(() => {
    const { container, text, title, totalStyle } = styles

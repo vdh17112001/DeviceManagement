@@ -1,15 +1,18 @@
 import React from 'react'
 import { StyleSheet, View } from 'react-native'
-import { useForm } from 'react-hook-form'
-import { FormCustomerData } from './utils/type'
+
 import { yupResolver } from '@hookform/resolvers/yup'
-import { customerSchema } from './utils/validation'
-import { ControllerDateInput } from './components/ControllerDateInput'
-import { ControllerInput } from '../../components/InputForm/ControllerInput'
-import customerStore from '../../common/store/customerInfoStore'
+import { useForm } from 'react-hook-form'
+
 import { useNavigate } from '../../common/hooks/useNavigate'
+import customerStore from '../../common/store/customerInfoStore'
 import { showToast } from '../../common/utils/toast'
 import { ButtonSubmit } from '../../components/Button/ButtonSubmit'
+import { ControllerInput } from '../../components/InputForm/ControllerInput'
+import { ControllerDateInput } from './components/ControllerDateInput'
+import { FormCustomerData } from './utils/type'
+import { customerSchema } from './utils/validation'
+import StatisticalChart from '../../components/StatisticalChart/StatisticalChart'
 
 const CustomerInfo = () => {
    const navigation = useNavigate()
@@ -31,7 +34,7 @@ const CustomerInfo = () => {
 
    return (
       <View style={container}>
-         <ControllerInput name="name" placeholder="Name" control={control} />
+         {/* <ControllerInput name="name" placeholder="Name" control={control} />
          <ControllerInput
             name="phone"
             placeholder="Phone number"
@@ -46,7 +49,8 @@ const CustomerInfo = () => {
          />
          <ControllerDateInput name="birth" control={control} />
 
-         <ButtonSubmit label="Submit" onPress={handleSubmit(_onSubmit)} />
+         <ButtonSubmit label="Submit" onPress={handleSubmit(_onSubmit)} /> */}
+         <StatisticalChart />
       </View>
    )
 }
