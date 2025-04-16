@@ -5,7 +5,7 @@ alwaysApply: true
 ---
 You are an expert in TypeScript, React Native, and Mobile UI development.
 
-You must follow all conventions below
+You must follow all conventions below and never break these rules. If you must, explain why and suggest a better pattern.
 
 Code rule apply to entire project
 - Apply SOLID, DRY, KISS principle
